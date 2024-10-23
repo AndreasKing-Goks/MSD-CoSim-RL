@@ -43,7 +43,7 @@ def PolicyLearnQL(env,
             policy.eval()
 
             # Do policy scoring
-            score = ScorePolicy(env, policy, n_episode_score, gamma)
+            score, _ = ScorePolicy(env, policy, n_episode_score, gamma)
 
             ############## SAVING SCORE STARTS ##############
             # Save the best QL scores
@@ -75,7 +75,7 @@ def PolicyLearnQL(env,
     env.reset()
 
     # Get the initial state and discretize it
-    states = env.state
+    states = env.states
     discrete_states = env.DiscretizeState(states)
 
     # Sample an action based on the policy using the discrete state

@@ -300,25 +300,25 @@ class EnvironmentMSD:
                  obsPos:                float=10,
                  obsVel:                float=10,
                  mass:                  float=1,
-                 stiff_coef:            float=1,
-                 damp_coef:             float=1,
-                 bin_numbers:             int=10,
+                 stiffCoef:            float=1,
+                 dampCoef:             float=1,
+                 binNumbers:             int=10,
                  stopTime:              float=100,
                  fps:                   float=60,
                  initMSDPos:            float=0,
                  initMSDVel:            float=0,
-                 Force:                 float=30,
+                 Force:                 float=10,
                  y_tsBound:             float=5.0,      # Terminal state bound
                  y_desiredTolerance:    float=0.25):    # Target height tolerance
         
         ############ Description ############
         self.name = "MSD-RL"
-        self.bin_numbers = bin_numbers
+        self.binNumbers = binNumbers
         self.y_desired = y_desired                      # The desired location we want the mass to be
         self.y_desiredTolerance = y_desiredTolerance    # The tolerance of the desired location
         self.mass = mass
-        self.stiff_coef = stiff_coef
-        self.damp_coef = damp_coef
+        self.stiffCoef = stiffCoef
+        self.dampCoef = dampCoef
         
         # Time
         self.stopTime = stopTime
@@ -384,10 +384,10 @@ class EnvironmentMSD:
         self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="m", initValue=self.mass)
 
         # Stiffness coefficient
-        self.CoSimInstance.SetInitialValue(slaveName="SPRING1D", slaveVar="k", initValue=self.stiff_coef)
+        self.CoSimInstance.SetInitialValue(slaveName="SPRING1D", slaveVar="k", initValue=self.stiffCoef)
 
         # Damping Coefficient
-        self.CoSimInstance.SetInitialValue(slaveName="DAMPER1D", slaveVar="c", initValue=self.damp_coef)
+        self.CoSimInstance.SetInitialValue(slaveName="DAMPER1D", slaveVar="c", initValue=self.dampCoef)
 
         # Initial Position
         self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="x", initValue=self.initial_states[0])
@@ -399,19 +399,19 @@ class EnvironmentMSD:
 
     def DiscretizeState(self, states, checkBins = False, shiftRight=False):
         # Continuous state shape (number of bins per state variable)
-        state_shape = (self.bin_numbers, self.bin_numbers)
+        state_shape = (self.binNumbers, self.binNumbers)
 
         # Unpacks states container
         y, y_dot = states
 
         # Define bin edges and max_bin_idx
-        bin_numbers = self.bin_numbers
-        bin_edges = bin_numbers + 1
-        max_bin_idx = bin_numbers - 1
+        binNumbers = self.binNumbers
+        binEdges = binNumbers + 1
+        max_bin_idx = binNumbers - 1
 
         # Define bin edges for discretization
-        MSDPosBins = np.linspace(self.observation_space.MSDPosition[0], self.observation_space.MSDPosition[1], bin_edges)
-        MSDVelBins = np.linspace(self.observation_space.MSDVelocity[0], self.observation_space.MSDVelocity[1], bin_edges)
+        MSDPosBins = np.linspace(self.observation_space.MSDPosition[0], self.observation_space.MSDPosition[1], binEdges)
+        MSDVelBins = np.linspace(self.observation_space.MSDVelocity[0], self.observation_space.MSDVelocity[1], binEdges)
 
         # Print bins description
         if checkBins:
