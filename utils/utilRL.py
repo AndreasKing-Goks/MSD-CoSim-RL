@@ -24,7 +24,7 @@ def SampleEpisode(env,            # Environment Class
 
     # Add the initial states to the observation container
     disc_observations.append(init_states)
-    observations.append(init_states)
+    observations.append(disc_init_states)
 
     # Go through the timestep
     for step in range(max_n_steps):
@@ -32,7 +32,7 @@ def SampleEpisode(env,            # Environment Class
         action = policy.sample(disc_observations[-1])
 
         # Obtain the next observation by stepping with action
-        next_states, reward, done = env.state(action)
+        next_states, reward, done = env.step(action)
 
         # Discretizes the next_states
         disc_next_states = env.DiscretizeState(next_states)

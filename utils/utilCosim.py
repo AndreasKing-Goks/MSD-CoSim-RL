@@ -316,7 +316,7 @@ class EnvironmentMSD:
                  y_desiredTolerance:    float=0.25):    # Target height tolerance
         
         ############ Description ############
-        self.name = "Mass-Spring-Damper system"
+        self.name = "MSD-RL"
         self.bin_numbers = bin_numbers
         self.y_desired = y_desired                      # The desired location we want the mass to be
         self.y_desiredTolerance = y_desiredTolerance    # The tolerance of the desired location
@@ -333,7 +333,7 @@ class EnvironmentMSD:
         self.observation_space = ObservationSpaceMSD(obsPos, obsVel)
 
         # Terminal state bound
-        self.terminal_state = TerminalStateBoundMSD(y_desired, y_tsBound)
+        self.terminal_state = TerminalStateBoundMSD(y_desired, y_tsBound, self.observation_space.MSDPosition)
 
         # Action space
         self.action_space = ActionSpaceMSD(Force)
@@ -349,10 +349,13 @@ class EnvironmentMSD:
         ############ Initial States ############
         ## Continuous Space
         # Initial states
-        self.init_states = np.array([initMSDPos, initMSDVel])
+        self.initial_states = np.array([initMSDPos, initMSDVel])
 
         # Current states
         self.states = self.initial_states
+
+        ############ Initial CoSimInstance ############
+        self.CoSimInstance = None
     
     def InitializeCoSim(self):
         # Also for resetting the environment
@@ -363,12 +366,13 @@ class EnvironmentMSD:
                                       stepSize=self.stepSize)
         
         # Adding slaves
-        self.CosimInstance.AddSlave(name="MASS1D"  , path="01_FMUs/Mass1D.fmu")
+        self.CoSimInstance.AddSlave(name="MASS1D"  , path="01_FMUs/Mass1D.fmu")
         self.CoSimInstance.AddSlave(name="SPRING1D", path="01_FMUs/Spring1D.fmu")
         self.CoSimInstance.AddSlave(name="DAMPER1D", path="01_FMUs/Damper1D.fmu")
 
-        # Setup Observer
-        self.CoSimInstance.AddObserverTimeSeries(name="pos", slaveName="MASS1D", variable="position")
+        # Setup Observer (observer record the position and velocity)
+        self.CoSimInstance.AddObserverTimeSeries(name="position", slaveName="MASS1D", variable="position")
+        self.CoSimInstance.AddObserverTimeSeries(name="velocity", slaveName="MASS1D", variable="velocity")
 
         # Add model connections
         # Mass to spring and damper
@@ -390,12 +394,12 @@ class EnvironmentMSD:
         self.CoSimInstance.SetInitialValue(slaveName="DAMPER1D", slaveVar="c", initValue=self.damp_coef)
 
         # Initial Position
-        self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="x", initValue=self.init_states[0])
-        self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="position", initValue=self.init_states[0])
+        self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="x", initValue=self.initial_states[0])
+        # self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="position", initValue=self.initial_states[0])
 
         # Initial Velocity
-        self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="v", initValue=self.init_states[1])
-        self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="velocity", initValue=self.init_states[1])
+        self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="v", initValue=self.initial_states[1])
+        # self.CoSimInstance.SetInitialValue(slaveName="MASS1D", slaveVar="velocity", initValue=self.initial_states[1])
 
     def DiscretizeState(self, states, checkBins = False, shiftRight=False):
         # Continuous state shape (number of bins per state variable)
@@ -483,4 +487,4 @@ class EnvironmentMSD:
         self.InitializeCoSim()
 
         # Set the initial states
-        self.states = self.init_states
+        self.states = self.initial_states
