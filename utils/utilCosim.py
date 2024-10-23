@@ -456,6 +456,9 @@ class EnvironmentMSD:
         # Retrieve the action force based on the action
         F_action = self.action_space.all_force[action]
 
+        # Setup CoSimManipulate before applying forces
+        self.CoSimInstance.CoSimManipulate()
+        
         # Apply the action force as the external force
         self.CoSimInstance.ApplyActionForce(F_action)
 
@@ -476,5 +479,8 @@ class EnvironmentMSD:
         return next_states, reward, done
 
     def reset(self):
+        # Initialize the Co-simulation
+        self.InitializeCoSim()
+
         # Set the initial states
         self.states = self.init_states

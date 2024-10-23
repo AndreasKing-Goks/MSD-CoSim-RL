@@ -70,6 +70,7 @@ def PolicyLearnQL(env,
             print()
         ############## SCORING  ENDS ##############
 
+    # THE SNIPPET BELOW IS ONLY FOR INITIALIZING BEFORE THE LOOP PROCESS
     # Reset the environment for RL and Co-Simulation
     env.reset()
 
