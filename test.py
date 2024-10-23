@@ -47,7 +47,7 @@ env = EnvironmentMSD(y_desired)
 
 # FOR DEBUGGING
 n_episode_value = 5  # Number of episodes required to compute the action value
-n_episode_score = 5  # Number of episodes required for socring te policy
+n_episode_score = 1  # Number of episodes required for socring te policy
 bin_numbers=10          # Bin numbers
 alpha=0.1               # Learning rate
 gamma=0.9               # Reward discount rate
@@ -75,10 +75,10 @@ QL_policy = EpsilonGreedyPolicy(env.action_space,
 env.reset()
 
 # Set the max_n_step and run sampling
-max_n_steps = 5
+max_n_steps = 1000
 
 # Test Sampling
-disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL_policy, max_n_steps=max_n_steps)
+# disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL_policy, max_n_steps=max_n_steps)
 
 # print(disc_observations)
 # print(observations)
@@ -86,4 +86,10 @@ disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL
 # print(rewards)
 # print(dones)
 
+score, _ = ScorePolicy(env, QL_policy, n_episode_score, gamma)
 
+print(env.terminal_state.MSDPositionTerminal)
+print(env.y_desiredBound)
+print(score)
+
+env.CoSimInstance.PlotTimeSeries(separate_plots=True)

@@ -179,10 +179,6 @@ class CoSimInstance:
             out_val = [self.GetLastValue(slaveName = self.slave_output_name[i],
                                         slaveVar = self.slave_output_var[i])]
 
-            # print(out_vr)
-            # print(out_type)
-            # print(out_val)
-
             if out_type == CosimVariableType.REAL:
                 in_vr, in_type = GetVariableInfo(self.slaves_variables[self.slave_input_name[i]], self.slave_input_var[i])
                 if out_type == in_type:
@@ -257,7 +253,7 @@ class CoSimInstance:
 
     # Custom Function
     def ApplyActionForce(self, F_action):
-        var_vr, var_type = GetVariableIndex(self.slaves_variables["MASS1D"], "F_3")
+        var_vr, var_type = GetVariableInfo(self.slaves_variables["MASS1D"], "F_3")
         self.manipulator.slave_real_values(self.slaves_index["MASS1D"], [var_vr], [F_action])
 
 #########################################################
@@ -282,8 +278,8 @@ class TerminalStateBoundMSD:
         
         # Check if terminal state is within the the observation space
         # y = 0 is a point where the spring do not exert any forces
-        tsPosDown = (y_desired - y_tsBound) if (y_desired - y_tsBound)<MSDPosition[0] else MSDPosition[0] # Up is negative value
-        tsPosUp   = (y_desired + y_tsBound) if (y_desired + y_tsBound)>MSDPosition[1] else MSDPosition[1] # Down is positive value
+        tsPosDown = (y_desired - y_tsBound) if (y_desired - y_tsBound)>MSDPosition[0] else MSDPosition[0] # Down is negative value
+        tsPosUp   = (y_desired + y_tsBound) if (y_desired + y_tsBound)<MSDPosition[1] else MSDPosition[1] # Up is positive value
         self.MSDPositionTerminal = [tsPosDown, tsPosUp]
 
 class ActionSpaceMSD:
@@ -311,7 +307,7 @@ class EnvironmentMSD:
                  fps:                   float=60,
                  initMSDPos:            float=0,
                  initMSDVel:            float=0,
-                 Force:                 float=10,
+                 Force:                 float=30,
                  y_tsBound:             float=5.0,      # Terminal state bound
                  y_desiredTolerance:    float=0.25):    # Target height tolerance
         
@@ -342,14 +338,14 @@ class EnvironmentMSD:
         self.action_taken =[]
 
         # Target tolerance
-        downTolerance  = (self.y_desired - self.y_desiredTolerance) if (self.y_desired - self.y_desiredTolerance)<self.observation_space.MSDPosition[0] else self.observation_space.MSDPosition[0]
-        upperTolerance = (self.y_desired + self.y_desiredTolerance) if (self.y_desired + self.y_desiredTolerance)>self.observation_space.MSDPosition[1] else self.observation_space.MSDPosition[1]
+        downTolerance  = (self.y_desired - self.y_desiredTolerance) if (self.y_desired - self.y_desiredTolerance)>self.observation_space.MSDPosition[0] else self.observation_space.MSDPosition[0]
+        upperTolerance = (self.y_desired + self.y_desiredTolerance) if (self.y_desired + self.y_desiredTolerance)<self.observation_space.MSDPosition[1] else self.observation_space.MSDPosition[1]
         self.y_desiredBound = [downTolerance, upperTolerance]
 
         ############ Initial States ############
         ## Continuous Space
         # Initial states
-        self.initial_states = np.array([initMSDPos, initMSDVel])
+        self.initial_states = [initMSDPos, initMSDVel]
 
         # Current states
         self.states = self.initial_states
@@ -442,13 +438,13 @@ class EnvironmentMSD:
 
         # Check the termination status of the current states
         done = (
-            states[0] < self.terminal_state.MSDPositionTerminal[0] or       # y < tsPosUp
-            states[0] > self.terminal_state.MSDPositionTerminal[1]          # y > tsPosDown
+            states[0] < self.terminal_state.MSDPositionTerminal[0] or       # y < tsPosDown
+            states[0] > self.terminal_state.MSDPositionTerminal[1]          # y > tsPosUp
         )
 
         # Check if targe tolerance condition met
-        upCondition = states[0] < self.observation_space.MSDPosition[1]
-        downCondition = states[0] > self.observation_space.MSDPosition[0]
+        downCondition = states[0] > self.y_desiredBound[0]
+        upCondition = states[0] < self.y_desiredBound[1]
         reward = 1 if upCondition and downCondition else 0
 
         return reward, done

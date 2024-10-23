@@ -23,8 +23,8 @@ def SampleEpisode(env,            # Environment Class
         disc_init_states = env.DiscretizeState(init_states) # Discretizes the initial states
 
     # Add the initial states to the observation container
-    disc_observations.append(init_states)
-    observations.append(disc_init_states)
+    disc_observations.append(disc_init_states)
+    observations.append(init_states)
 
     # Go through the timestep
     for step in range(max_n_steps):
@@ -55,7 +55,7 @@ def ScorePolicy(env,
                 n_episodes:  int=10000,
                 gamma:     float=0.9):
     # Initialize variables and containers
-    steps_to_goal = []
+    total_reward_per_episode = []
 
     # Go through the policy for each episodes
     for episode in range(n_episodes):
@@ -63,9 +63,9 @@ def ScorePolicy(env,
         _, _, _, rewards, _ = SampleEpisode(env, policy, reset=True)
  
         # Record the goal occurences and the steps to achieve it
-        steps_to_goal.append(len(rewards))
+        total_reward_per_episode.append(sum(rewards))
 
         # Compute the scores: mean steps taken to reach goal for all episodes
-        score = np.mean(steps_to_goal) if steps_to_goal else 0
+        score = np.mean(total_reward_per_episode) if total_reward_per_episode else 0
 
-    return score
+    return score, total_reward_per_episode
