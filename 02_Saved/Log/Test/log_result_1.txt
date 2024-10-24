@@ -1,0 +1,27 @@
+#################### LEARNING PARAMETERS #####################
+
+Policy improvement maximum episodes    : 10
+Policy scoring maximum episodes        : 10
+Log ID                                 : 1
+Log mode                               : test
+Learning rate                          : 0.1
+Maximum number of simulation step      : 10
+Printing for every: 2 episodes
+
+################### Q-LEARNING RESULT LOG ####################
+
+Q-Learning episode: 2, epsilon:  1.00
+Score: 0.00%
+
+Q-Learning episode: 4, epsilon:  1.00
+Score: 0.00%
+
+Q-Learning episode: 6, epsilon:  1.00
+Score: 0.00%
+
+Q-Learning episode: 8, epsilon:  1.00
+Score: 0.00%
+
+Q-Learning episode: 10, epsilon:  1.00
+Score: 0.00%
+

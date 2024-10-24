@@ -56,14 +56,14 @@ epsilon_decay = 0.9995   # Decays the epsilon as the episodes goes
 epsilon_min = 0.01       # The minimum epsilon after decay
 
 # # FOR LEARNING
-# n_episode_value = 20000  # Number of episodes required to compute the action value
-# n_episode_score = 5000   # Number of episodes required for socring te policy
+# n_episode_value = 250  # Number of episodes required to compute the action value
+# n_episode_score = 100   # Number of episodes required for socring te policy
 # alpha=0.05               # Learning rate
 # gamma=0.9                # Reward discount rate
 # max_n_steps=10000        # Maximum number of steps in a single episodes
-# print_every=2500         # The episodes when t he score is printed
+# print_every=25         # The episodes when t he score is printed
 # epsilon = 1.0            # Explorative coefficient
-# epsilon_decay = 0.9999   # Decays the epsilon as the episodes goes
+# epsilon_decay = 0.99   # Decays the epsilon as the episodes goes
 # epsilon_min = 0.01       # The minimum epsilon after decay
 
 # Initialize the action-value table
@@ -85,11 +85,19 @@ QL_policy = EpsilonGreedyPolicy(envMSD.action_space,
 QL_policy.train()
 
 # Do policy improvement
+# Saving Options
+logID = 1
+logMode = "test"  # available mode "test", "learn", "none"
+save_result = 1
+
 PolicyLearnQL(envMSD, 
               QL_policy,
               n_episode_value,
               n_episode_score,
+              logID,
+              logMode,
               alpha,
               gamma,
               max_n_steps,
-              print_every)
+              print_every,
+              save_result)
