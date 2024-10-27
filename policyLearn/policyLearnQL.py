@@ -38,7 +38,7 @@ def PolicyLearnQL(env,
     # Intial log to rewrite the log text file
     initLog = True
     
-    LogMessage("############################ LEARNING PARAMETERS ############################", logID, log_dir, initLog)
+    LogMessage("############################ LEARNING PARAMETERS #############################", logID, log_dir, initLog)
     LogMessage("", logID, log_dir)
     LogMessage(f"Policy improvement maximum episodes         : {n_episode_value}", logID, log_dir)
     LogMessage(f"Policy scoring maximum episodes             : {n_episode_score}", logID, log_dir)
@@ -55,8 +55,14 @@ def PolicyLearnQL(env,
     
     LogMessage("", logID, log_dir)
     
-    LogMessage("########################## Q-LEARNING RESULT LOG ############################", logID, log_dir)
+    LogMessage("########################## Q-LEARNING RESULT LOG #############################", logID, log_dir)
     
+    LogMessage("", logID, log_dir)
+    
+    LogMessage("Note:", logID, log_dir)
+    LogMessage("Score is defined as the ratio between the obtained rewards and the total steps", logID, log_dir)
+    LogMessage("taken, averaged across all the scoring episodes.", logID, log_dir)
+
     LogMessage("", logID, log_dir)
 
     # Create directory if it doesn't exists
@@ -66,9 +72,9 @@ def PolicyLearnQL(env,
     # Set q tables file name
     qt_filename = f"best_q_table_{logID}_{logMode}"
 
-    # If qt_filename exists
-    if os.path.exists(os.path.join(save_dir, qt_filename)):
-        qt_filename = f"best_q_table_{logID+1}_{logMode}"
+    # # If qt_filename exists
+    # if os.path.exists(os.path.join(save_dir, qt_filename)):
+    #     qt_filename = f"best_q_table_{logID+1}_{logMode}"
 
     # Intialize the best score
     best_score = -np.inf
@@ -108,8 +114,7 @@ def PolicyLearnQL(env,
             score, total_reward, total_step = ScorePolicy(env, 
                                                           policy, 
                                                           max_n_steps, 
-                                                          n_episode_score, 
-                                                          gamma)
+                                                          n_episode_score)
 
             ############## SAVING SCORE STARTS ##############
             if save_result:
@@ -126,13 +131,13 @@ def PolicyLearnQL(env,
                             "Q-table" : policy.q,
                         }, f)
                     
-                    LogMessage(f'New best score of {score} achieved at episode {episode+1}. Best Q-table saved to {save_path}', logID, log_dir)
-
+                    LogMessage(f'New best score of {score:.2%} achieved at episode {episode+1}', logID, log_dir)
+                    LogMessage(f'Best Q-table saved to {save_path}', logID, log_dir)
             ############## SAVING SCORES ENDS ##############
 
             # Print the score in terminal
             LogMessage("Over all scoring episodes:", logID, log_dir)
-            LogMessage(f"Score: {score} ; Average step taken {np.mean(total_step)}: , Total rewards: {np.sum(total_reward)}",
+            LogMessage(f"Score: {score:.2%} ; Average step taken {np.mean(total_step)}: , Average rewards: {np.mean(total_reward)}",
                         logID, log_dir)
 
             # Switch to training mode
@@ -206,15 +211,15 @@ def PolicyLearnQL(env,
 
     # Print result in logfiles
     if print_last_eps_res:
-        LogMessage("########################## LAST EPISODE RESULTS #############################", logID, log_dir)
+        LogMessage("########################## LAST EPISODE RESULTS ##############################", logID, log_dir)
         pos = states_list_all_episode[-1][0][0]
         vel = states_list_all_episode[-1][0][1]
         len_state = len(states_list_all_episode[-1])
         len_step = len(actions_list_all_episode[-1])
         tot_rew = sum(rewards_list_all_episode[-1])
-        LogMessage("-----------------------------------------------------------------------------", logID, log_dir)
+        LogMessage("------------------------------------------------------------------------------", logID, log_dir)
         LogMessage(f"States visited: {len_state} | Step taken: {len_step} | Total rewards: {tot_rew} | Elapsed Time: {e_time:.1f}", logID, log_dir)
-        LogMessage("-----------------------------------------------------------------------------", logID, log_dir)
+        LogMessage("------------------------------------------------------------------------------", logID, log_dir)
         LogMessage(f"act:  -    | ter:   -   | rew: - |  pos: {pos:.3f} | vel: {vel:.3f}", logID, log_dir)
         for i in range(len(rewards_list_all_episode[-1])):
             rew = rewards_list_all_episode[-1][i]

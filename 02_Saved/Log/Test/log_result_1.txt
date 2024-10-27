@@ -1,0 +1,103 @@
+############################ LEARNING PARAMETERS #############################
+
+Policy improvement maximum episodes         : 10
+Policy scoring maximum episodes             : 1
+Log ID                                      : 1
+Log mode                                    : test
+Learning rate                               : 0.1
+Maximum number of simulation step           : 1000
+Observation space (Position [m])            : [-10, 10]
+Observation space (Velocity [m/s])          : [-10, 10]
+Terminal state bound (Position [m])         : [-4.0, 6.0]
+Desired height (Position [m])               : 1.0
+Allowed desired height bound (Position [m]) : [0.75, 1.25]
+Printing for every                          : 2 episodes
+
+########################## Q-LEARNING RESULT LOG #############################
+
+Note:
+Score is defined as the ratio between the obtained rewards and the total steps
+taken, averaged across all the scoring episodes.
+
+Q-Learning episode: 2, epsilon:  1.00
+New best score of 6.02% achieved at episode 2
+Best Q-table saved to ./02_Saved/Scores\best_q_table_2_test
+Over all scoring episodes:
+Score: 6.02% ; Average step taken 166.0: , Average rewards: 10.0
+
+Q-Learning episode: 4, epsilon:  1.00
+New best score of 11.48% achieved at episode 4
+Best Q-table saved to ./02_Saved/Scores\best_q_table_2_test
+Over all scoring episodes:
+Score: 11.48% ; Average step taken 61.0: , Average rewards: 7.0
+
+Q-Learning episode: 6, epsilon:  1.00
+New best score of 15.95% achieved at episode 6
+Best Q-table saved to ./02_Saved/Scores\best_q_table_2_test
+Over all scoring episodes:
+Score: 15.95% ; Average step taken 163.0: , Average rewards: 26.0
+
+Q-Learning episode: 8, epsilon:  1.00
+Over all scoring episodes:
+Score: 6.90% ; Average step taken 58.0: , Average rewards: 4.0
+
+Q-Learning episode: 10, epsilon:  1.00
+Over all scoring episodes:
+Score: 3.80% ; Average step taken 184.0: , Average rewards: 7.0
+
+########################## LAST EPISODE RESULTS ##############################
+------------------------------------------------------------------------------
+States visited: 52 | Step taken: 51 | Total rewards: 12 | Elapsed Time: 12.4
+------------------------------------------------------------------------------
+act:  -    | ter:   -   | rew: - |  pos: 0.000 | vel: 0.000
+act: Idle  | ter: False | rew: 0 | pos: -0.049 | vel: -0.981
+act: Push  | ter: False | rew: 0 | pos: -0.096 | vel:  0.038
+act: Push  | ter: False | rew: 0 | pos: -0.037 | vel:  1.165
+act: Push  | ter: False | rew: 0 | pos:  0.131 | vel:  2.190
+act: Idle  | ter: False | rew: 0 | pos:  0.295 | vel:  1.090
+act: Push  | ter: False | rew: 0 | pos:  0.442 | vel:  1.866
+act: Idle  | ter: False | rew: 0 | pos:  0.573 | vel:  0.741
+act: Push  | ter: False | rew: 0 | pos:  0.686 | vel:  1.520
+act: Push  | ter: False | rew: 1 | pos:  0.882 | vel:  2.403
+act: Idle  | ter: False | rew: 1 | pos:  1.062 | vel:  1.194
+act: Idle  | ter: False | rew: 1 | pos:  1.116 | vel: -0.128
+act: Idle  | ter: False | rew: 1 | pos:  1.043 | vel: -1.340
+act: Push  | ter: False | rew: 1 | pos:  0.955 | vel: -0.419
+act: Push  | ter: False | rew: 1 | pos:  0.965 | vel:  0.636
+act: Push  | ter: False | rew: 1 | pos:  1.077 | vel:  1.604
+act: Push  | ter: False | rew: 0 | pos:  1.279 | vel:  2.459
+act: Push  | ter: False | rew: 0 | pos:  1.562 | vel:  3.202
+act: Idle  | ter: False | rew: 0 | pos:  1.815 | vel:  1.835
+act: Push  | ter: False | rew: 0 | pos:  2.024 | vel:  2.361
+act: Idle  | ter: False | rew: 0 | pos:  2.193 | vel:  1.006
+act: Idle  | ter: False | rew: 0 | pos:  2.223 | vel: -0.425
+act: Push  | ter: False | rew: 0 | pos:  2.215 | vel:  0.269
+act: Idle  | ter: False | rew: 0 | pos:  2.184 | vel: -0.890
+act: Idle  | ter: False | rew: 0 | pos:  2.034 | vel: -2.121
+act: Push  | ter: False | rew: 0 | pos:  1.867 | vel: -1.227
+act: Idle  | ter: False | rew: 0 | pos:  1.696 | vel: -2.188
+act: Push  | ter: False | rew: 0 | pos:  1.525 | vel: -1.227
+act: Idle  | ter: False | rew: 0 | pos:  1.357 | vel: -2.148
+act: Push  | ter: False | rew: 1 | pos:  1.191 | vel: -1.152
+act: Push  | ter: False | rew: 1 | pos:  1.131 | vel: -0.044
+act: Push  | ter: False | rew: 1 | pos:  1.177 | vel:  0.977
+act: Push  | ter: False | rew: 0 | pos:  1.320 | vel:  1.888
+act: Push  | ter: False | rew: 0 | pos:  1.548 | vel:  2.687
+act: Idle  | ter: False | rew: 0 | pos:  1.752 | vel:  1.375
+act: Idle  | ter: False | rew: 0 | pos:  1.819 | vel: -0.043
+act: Idle  | ter: False | rew: 0 | pos:  1.751 | vel: -1.344
+act: Idle  | ter: False | rew: 0 | pos:  1.559 | vel: -2.502
+act: Push  | ter: False | rew: 0 | pos:  1.357 | vel: -1.517
+act: Push  | ter: False | rew: 0 | pos:  1.262 | vel: -0.391
+act: Idle  | ter: False | rew: 1 | pos:  1.175 | vel: -1.348
+act: Idle  | ter: False | rew: 1 | pos:  0.987 | vel: -2.414
+act: Idle  | ter: False | rew: 0 | pos:  0.699 | vel: -3.371
+act: Idle  | ter: False | rew: 0 | pos:  0.321 | vel: -4.197
+act: Idle  | ter: False | rew: 0 | pos: -0.134 | vel: -4.894
+act: Idle  | ter: False | rew: 0 | pos: -0.651 | vel: -5.466
+act: Idle  | ter: False | rew: 0 | pos: -1.220 | vel: -5.920
+act: Idle  | ter: False | rew: 0 | pos: -1.829 | vel: -6.261
+act: Idle  | ter: False | rew: 0 | pos: -2.467 | vel: -6.498
+act: Idle  | ter: False | rew: 0 | pos: -3.124 | vel: -6.639
+act: Idle  | ter: False | rew: 0 | pos: -3.790 | vel: -6.690
+act: Idle  | ter: True  | rew: 0 | pos: -4.458 | vel: -6.662

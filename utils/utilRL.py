@@ -74,28 +74,33 @@ def SampleEpisode(env,            # Environment Class
     
     return disc_observations, observations, actions, rewards, dones
 
-def ScorePolicy(env,
-                policy,
-                max_n_steps,
-                n_episodes:  int=10000,
-                gamma:     float=0.9):
-    # Initialize variables and containers
+def ScorePolicy(env, policy, max_n_steps, n_episodes: int = 10000):
+    # Initialize containers
     total_reward_per_episode = []
-    total_step_per_epsiode = []
+    total_step_per_episode = []
+    total_score_per_episode = []
 
-    # Go through the policy for each episodes
+    # Go through the policy for each episode
     for episode in range(n_episodes):
-        # Sample the episodes
+        # Sample the episode
         _, _, _, rewards, _ = SampleEpisode(env, policy, max_n_steps, reset=True)
- 
-        # Record the goal occurences and the steps to achieve it
-        total_reward_per_episode.append(sum(rewards))
 
-        # Record the total step taken
-        total_step_per_epsiode.append(len(rewards))
+        # Record the goal occurrences and the steps to achieve it
+        episode_reward = sum(rewards)
+        episode_steps = len(rewards)
 
-    # Compute the scores: mean of reward received over all scoring episodes
-    score = np.mean(total_reward_per_episode)
-    # score = np.mean(total_reward_per_episode) if total_reward_per_episode else 0
+        # Record total reward and step count per episode
+        total_reward_per_episode.append(episode_reward)
+        total_step_per_episode.append(episode_steps)
 
-    return score, total_reward_per_episode, total_step_per_epsiode
+        # Calculate the normalized score for the episode
+        if episode_steps > 0:
+            score_ratio = episode_reward / episode_steps
+        else:
+            score_ratio = 0  # Handle case where no steps were taken
+        total_score_per_episode.append(score_ratio)
+
+    # Compute the scores: normalized score across episodes
+    score = np.mean(total_score_per_episode)
+
+    return score, total_reward_per_episode, total_step_per_episode
