@@ -38,7 +38,7 @@ def PolicyLearnQL(env,
     # Intial log to rewrite the log text file
     initLog = True
     
-    LogMessage("############################ LEARNING PARAMETERS #############################", logID, log_dir, initLog)
+    LogMessage("############################### LEARNING PARAMETERS ################################", logID, log_dir, initLog)
     LogMessage("", logID, log_dir)
     LogMessage(f"Policy improvement maximum episodes         : {n_episode_value}", logID, log_dir)
     LogMessage(f"Policy scoring maximum episodes             : {n_episode_score}", logID, log_dir)
@@ -55,7 +55,7 @@ def PolicyLearnQL(env,
     
     LogMessage("", logID, log_dir)
     
-    LogMessage("########################## Q-LEARNING RESULT LOG #############################", logID, log_dir)
+    LogMessage("############################# Q-LEARNING RESULT LOG ################################", logID, log_dir)
     
     LogMessage("", logID, log_dir)
     
@@ -211,15 +211,15 @@ def PolicyLearnQL(env,
 
     # Print result in logfiles
     if print_last_eps_res:
-        LogMessage("########################## LAST EPISODE RESULTS ##############################", logID, log_dir)
+        LogMessage("############################# LAST EPISODE RESULTS #################################", logID, log_dir)
         pos = states_list_all_episode[-1][0][0]
         vel = states_list_all_episode[-1][0][1]
         len_state = len(states_list_all_episode[-1])
         len_step = len(actions_list_all_episode[-1])
         tot_rew = sum(rewards_list_all_episode[-1])
-        LogMessage("------------------------------------------------------------------------------", logID, log_dir)
+        LogMessage("------------------------------------------------------------------------------------", logID, log_dir)
         LogMessage(f"States visited: {len_state} | Step taken: {len_step} | Total rewards: {tot_rew} | Elapsed Time: {e_time:.1f}", logID, log_dir)
-        LogMessage("------------------------------------------------------------------------------", logID, log_dir)
+        LogMessage("------------------------------------------------------------------------------------", logID, log_dir)
         LogMessage(f"act:  -    | ter:   -   | rew: - |  pos: {pos:.3f} | vel: {vel:.3f}", logID, log_dir)
         for i in range(len(rewards_list_all_episode[-1])):
             rew = rewards_list_all_episode[-1][i]
