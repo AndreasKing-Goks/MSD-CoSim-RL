@@ -43,8 +43,8 @@ envMSD = EnvironmentMSD(y_desired,
 
 ## Parameters for Policy and Q-Learning
 # FOR DEBUGGING
-n_episode_value = 2    # Number of episodes required to compute the action value
-n_episode_score = 2     # Number of episodes required for socring te policy
+n_episode_value = 10    # Number of episodes required to compute the action value
+n_episode_score = 1     # Number of episodes required for socring te policy
 alpha=0.1                # Learning rate
 gamma=0.9                # Reward discount rate
 max_n_steps=1000        # Maximum number of steps in a single episodes
@@ -86,7 +86,7 @@ QL_policy.train()
 # Saving Options
 logID = 1
 logMode = "test"  # available mode "test", "learn", "none"
-save_result = 1
+save_result = True
 
 PolicyLearnQL(envMSD, 
               QL_policy,

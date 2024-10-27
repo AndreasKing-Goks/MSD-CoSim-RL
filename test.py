@@ -88,35 +88,41 @@ eps = 5
 
 QL_policy.eval()
 # QL_policy.train()
-for i in range(eps):
-    disc_observations, observations, actions, rewards, dones = SampleEpisode(env, 
-                                                                         QL_policy, 
-                                                                         max_n_steps)
-    step_taken_list.append(len(actions))
-    total_reward_received_list.append(sum(rewards))
 
-print(step_taken_list)
-print(np.mean(step_taken_list))
-print(total_reward_received_list)
-print(np.mean(total_reward_received_list))
+# for i in range(eps):
+#     disc_observations, observations, actions, rewards, dones = SampleEpisode(env, 
+#                                                                          QL_policy, 
+#                                                                          max_n_steps)
+#     step_taken_list.append(len(actions))
+#     total_reward_received_list.append(sum(rewards))
 
-# print(disc_observations)
-# print(observations)
-# print(actions)
-# print(env.observation_space.MSDPosition)
-# print(env.observation_space.MSDVelocity)
-# print(env.terminal_state.MSDPositionTerminal) 
-# print(len(rewards))
-# print(sum(rewards))
-# print(len(actions))
-# print(len(actions.count(0)))
-# print(len(actions.count(1)))
-# print(dones)
+# print(step_taken_list)
+# print(np.mean(step_taken_list))
+# print(total_reward_received_list)
+# print(np.mean(total_reward_received_list))
 
-# score, total_reward, total_step = ScorePolicy(env, 
-#                                               QL_policy, 
-#                                               max_n_steps, 
-#                                               n_episode_score, 
-#                                               gamma)
+# # print(disc_observations)
+# # print(observations)
+# # print(actions)
+# # print(env.observation_space.MSDPosition)
+# # print(env.observation_space.MSDVelocity)
+# # print(env.terminal_state.MSDPositionTerminal) 
+# # print(len(rewards))
+# # print(sum(rewards))
+# # print(len(actions))
+# # print(len(actions.count(0)))
+# # print(len(actions.count(1)))
+# # print(dones)
+
+score, total_reward, total_step = ScorePolicy(env, 
+                                              QL_policy, 
+                                              max_n_steps, 
+                                              n_episode_score, 
+                                              gamma)
+
+print(score)
+print(total_reward)
+print(total_step)
+print(QL_policy.q)
 
 env.CoSimInstance.PlotTimeSeries(separate_plots=True)

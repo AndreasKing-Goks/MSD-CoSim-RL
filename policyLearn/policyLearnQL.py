@@ -19,9 +19,9 @@ def PolicyLearnQL(env,
                   print_every:            int=500,
                   save_result:            bool=True,
                   print_last_eps_res:    bool=False,
-                  save_dir:                str="./02_Saved/Scores",
-                  test_log_dir:            str="./02_Saved/Log/Test",
-                  learn_log_dir:           str="./02_Saved/Log/Learn"):
+                  save_dir:               str="./02_Saved/Scores",
+                  test_log_dir:           str="./02_Saved/Log/Test",
+                  learn_log_dir:          str="./02_Saved/Log/Learn"):
     # Start timer
     start_time = time.time()
 
@@ -71,7 +71,7 @@ def PolicyLearnQL(env,
         qt_filename = f"best_q_table_{logID+1}_{logMode}"
 
     # Intialize the best score
-    best_score = np.inf
+    best_score = -np.inf
 
     # Results container
     states_list_all_episode = []
@@ -102,7 +102,7 @@ def PolicyLearnQL(env,
             LogMessage(f"Q-Learning episode: {episode + 1}, epsilon: {policy.epsilon: .2f}", logID, log_dir)
 
             # Switch to evaluation mode
-            policy.eval()
+            # policy.eval()
 
             # Do policy scoring
             score, total_reward, total_step = ScorePolicy(env, 
@@ -125,6 +125,9 @@ def PolicyLearnQL(env,
                             "Score"   : score,
                             "Q-table" : policy.q,
                         }, f)
+                    
+                    LogMessage(f'New best score of {score} achieved at episode {episode+1}. Best Q-table saved to {save_path}', logID, log_dir)
+
             ############## SAVING SCORES ENDS ##############
 
             # Print the score in terminal
@@ -139,63 +142,63 @@ def PolicyLearnQL(env,
             LogMessage("", logID, log_dir)
         ############## SCORING  ENDS ##############
 
-    # THE SNIPPET BELOW IS ONLY FOR INITIALIZING BEFORE THE LOOP PROCESS
-    # Reset the environment for RL and Co-Simulation
-    env.reset()
+        # THE SNIPPET BELOW IS ONLY FOR INITIALIZING BEFORE THE LOOP PROCESS
+        # Reset the environment for RL and Co-Simulation
+        env.reset()
 
-    # Get the initial state and discretize it
-    states = env.states
-    discrete_states = env.DiscretizeState(states)
+        # Get the initial state and discretize it
+        states = env.states
+        discrete_states = env.DiscretizeState(states)
 
-    states_per_episode.append(states)
+        states_per_episode.append(states)
 
-    # Sample an action based on the policy using the discrete state
-    action = policy.sample(discrete_states)
+        # Sample an action based on the policy using the discrete state
+        action = policy.sample(discrete_states)
 
-    # Do action value estimation and improvement method using Q-Learning
-    for step in range(max_n_steps):
-        # Perform forward step for the agent
-        next_states, reward, done = env.step(action)
-        states_per_episode.append(next_states)
-        rewards_per_episode.append(reward)
-        actions_per_episode.append(action)
-        terminates_per_episode.append(done)
+        # Do action value estimation and improvement method using Q-Learning
+        for step in range(max_n_steps):
+            # Perform forward step for the agent
+            next_states, reward, done = env.step(action)
+            states_per_episode.append(next_states)
+            rewards_per_episode.append(reward)
+            actions_per_episode.append(action)
+            terminates_per_episode.append(done)
 
-        # Discretize the next state
-        next_discrete_states = env.DiscretizeState(next_states)
+            # Discretize the next state
+            next_discrete_states = env.DiscretizeState(next_states)
 
-        # Sample next action using next states
-        next_action = policy.sample(next_discrete_states)
+            # Sample next action using next states
+            next_action = policy.sample(next_discrete_states)
 
-        ## Compute the state-action value
-        # Obtained reward
-        term_1 = reward
+            ## Compute the state-action value
+            # Obtained reward
+            term_1 = reward
 
-        # Maximum expected state-action pair value
-        term_2 = gamma * np.max(policy.q[next_discrete_states])
+            # Maximum expected state-action pair value
+            term_2 = gamma * np.max(policy.q[next_discrete_states])
 
-        # Current state-action pair value
-        term_3 = policy.q[discrete_states, action]
+            # Current state-action pair value
+            term_3 = policy.q[discrete_states, action]
 
-        # Update the Q-tables
-        policy.q[discrete_states, action] += alpha * (term_1 + term_2 -term_3)
+            # Update the Q-tables
+            policy.q[discrete_states, action] += alpha * (term_1 + term_2 -term_3)
 
-        # If the episode has finished, compute the action value and then break the loop
-        if done:
-            break
+            # If the episode has finished, compute the action value and then break the loop
+            if done:
+                break
 
-        # Set the next state-action pair as the current state-action pair for the next action-value update
-        discrete_states = next_discrete_states
-        action = next_action
+            # Set the next state-action pair as the current state-action pair for the next action-value update
+            discrete_states = next_discrete_states
+            action = next_action
 
-        # Add st
-        states_list_all_episode.append(states_per_episode)
-        rewards_list_all_episode.append(rewards_per_episode)
-        actions_list_all_episode.append(actions_per_episode)
-        terminates_list_all_episode.append(terminates_per_episode)
+            # Add st
+            states_list_all_episode.append(states_per_episode)
+            rewards_list_all_episode.append(rewards_per_episode)
+            actions_list_all_episode.append(actions_per_episode)
+            terminates_list_all_episode.append(terminates_per_episode)
 
-    # Switch to training mode
-    policy.train()
+        # Switch to training mode
+        policy.train()
 
     # Stop timer
     end_time = time.time()
