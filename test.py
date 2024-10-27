@@ -78,8 +78,27 @@ env.reset()
 # Set the max_n_step and run sampling
 max_n_steps = 100000
 
-# Test Sampling
-disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL_policy, max_n_steps=max_n_steps)
+# env.InitializeCoSim()
+
+# # Test Sampling
+step_taken_list = []
+total_reward_received_list = []
+
+eps = 5
+
+QL_policy.eval()
+# QL_policy.train()
+for i in range(eps):
+    disc_observations, observations, actions, rewards, dones = SampleEpisode(env, 
+                                                                         QL_policy, 
+                                                                         max_n_steps)
+    step_taken_list.append(len(actions))
+    total_reward_received_list.append(sum(rewards))
+
+print(step_taken_list)
+print(np.mean(step_taken_list))
+print(total_reward_received_list)
+print(np.mean(total_reward_received_list))
 
 # print(disc_observations)
 # print(observations)
@@ -87,16 +106,17 @@ disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL
 # print(env.observation_space.MSDPosition)
 # print(env.observation_space.MSDVelocity)
 # print(env.terminal_state.MSDPositionTerminal) 
-print(len(rewards))
+# print(len(rewards))
+# print(sum(rewards))
 # print(len(actions))
 # print(len(actions.count(0)))
 # print(len(actions.count(1)))
 # print(dones)
 
-# score, _ = ScorePolicy(env, QL_policy, n_episode_score, gamma)
-
-# print(env.terminal_state.MSDPositionTerminal)
-# print(env.y_desiredBound)
-# print(score)
+# score, total_reward, total_step = ScorePolicy(env, 
+#                                               QL_policy, 
+#                                               max_n_steps, 
+#                                               n_episode_score, 
+#                                               gamma)
 
 env.CoSimInstance.PlotTimeSeries(separate_plots=True)
