@@ -40,17 +40,18 @@ def PolicyLearnQL(env,
     
     LogMessage("############################ LEARNING PARAMETERS ############################", logID, log_dir, initLog)
     LogMessage("", logID, log_dir)
-    LogMessage(f"Policy improvement maximum episodes    : {n_episode_value}", logID, log_dir)
-    LogMessage(f"Policy scoring maximum episodes        : {n_episode_score}", logID, log_dir)
-    LogMessage(f"Log ID                                 : {logID}", logID, log_dir)
-    LogMessage(f"Log mode                               : {logMode}", logID, log_dir)
-    LogMessage(f"Learning rate                          : {alpha}", logID, log_dir)
-    LogMessage(f"Maximum number of simulation step      : {max_n_steps}", logID, log_dir)
-    LogMessage(f"Observation Space (Position [m])       : {env.observation_space.MSDPosition}", logID, log_dir)
-    LogMessage(f"Observation Space (Velocity [m/s])     : {env.observation_space.MSDVelocity}", logID, log_dir)
-    LogMessage(f"Terminal State Bound (Position [m])    : {env.terminal_state.MSDPositionTerminal}", logID, log_dir)
-    LogMessage(f"Desired Height Bound (Position [m])    : {env.y_desiredBound}", logID, log_dir)
-    LogMessage(f"Printing for every: {print_every} episodes", logID, log_dir)
+    LogMessage(f"Policy improvement maximum episodes         : {n_episode_value}", logID, log_dir)
+    LogMessage(f"Policy scoring maximum episodes             : {n_episode_score}", logID, log_dir)
+    LogMessage(f"Log ID                                      : {logID}", logID, log_dir)
+    LogMessage(f"Log mode                                    : {logMode}", logID, log_dir)
+    LogMessage(f"Learning rate                               : {alpha}", logID, log_dir)
+    LogMessage(f"Maximum number of simulation step           : {max_n_steps}", logID, log_dir)
+    LogMessage(f"Observation space (Position [m])            : {env.observation_space.MSDPosition}", logID, log_dir)
+    LogMessage(f"Observation space (Velocity [m/s])          : {env.observation_space.MSDVelocity}", logID, log_dir)
+    LogMessage(f"Terminal state bound (Position [m])         : {env.terminal_state.MSDPositionTerminal}", logID, log_dir)
+    LogMessage(f"Desired height (Position [m])               : {env.y_desired}", logID, log_dir)
+    LogMessage(f"Allowed desired height bound (Position [m]) : {env.y_desiredBound}", logID, log_dir)
+    LogMessage(f"Printing for every                          : {print_every} episodes", logID, log_dir)
     
     LogMessage("", logID, log_dir)
     
@@ -215,7 +216,7 @@ def PolicyLearnQL(env,
         for i in range(len(rewards_list_all_episode[-1])):
             rew = rewards_list_all_episode[-1][i]
             act = "Idle" if actions_list_all_episode[-1][i]==0 else "Push"
-            ter = "False" if terminates_list_all_episode[-1][i] else "True"
+            ter = "False" if terminates_list_all_episode[-1][i]==0 else "True"
             pos = states_list_all_episode[-1][i+1][0]
             vel = states_list_all_episode[-1][i+1][1]
             LogMessage(f"act: {act:<5} | ter: {ter:<5} | rew: {rew:-} | pos: {pos:>6.3f} | vel: {vel:>6.3f}", logID, log_dir)
