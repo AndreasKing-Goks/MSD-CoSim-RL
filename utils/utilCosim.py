@@ -284,8 +284,8 @@ class TerminalStateBoundMSD:
 
 class ActionSpaceMSD:
     def __init__(self, 
-                 Force):
-        self.force = Force                                  # Newton
+                 force):
+        self.force = force                                  # Newton
         self.all_force = [0, self.force]
         self.n = len(self.all_force)                        # Number of action space
     
@@ -307,7 +307,7 @@ class EnvironmentMSD:
                  fps:                   float=60,
                  initMSDPos:            float=0,
                  initMSDVel:            float=0,
-                 Force:                 float=10,
+                 force:                 float=10,
                  y_tsBound:             float=5.0,      # Terminal state bound
                  y_desiredTolerance:    float=0.25):    # Target height tolerance
         
@@ -332,7 +332,7 @@ class EnvironmentMSD:
         self.terminal_state = TerminalStateBoundMSD(y_desired, y_tsBound, self.observation_space.MSDPosition)
 
         # Action space
-        self.action_space = ActionSpaceMSD(Force)
+        self.action_space = ActionSpaceMSD(force)
 
         # Action taken
         self.action_taken =[]
@@ -466,8 +466,8 @@ class EnvironmentMSD:
         self.CoSimInstance.execution.step()
 
         # Get the new state (position, velocity)
-        next_position = self.CoSimInstance.GetLastValue(slaveName="MASS1D", slaveVar="position")
-        next_velocity = self.CoSimInstance.GetLastValue(slaveName="MASS1D", slaveVar="velocity")
+        next_position = self.CoSimInstance.GetLastValue(slaveName="MASS1D", slaveVar="x")
+        next_velocity = self.CoSimInstance.GetLastValue(slaveName="MASS1D", slaveVar="v")
         next_states = [next_position, next_velocity]
 
         # Compute the reward per step

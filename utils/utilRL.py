@@ -1,4 +1,28 @@
 import numpy as np
+import os
+
+def LogMessage(message,
+               logID,
+               log_dir,
+               initLog=False):
+    ## Helper function to log or print the message
+    # Log file path
+    file_name = f"log_result_{logID}.txt"
+    log_file_path = os.path.join(log_dir, file_name)
+
+    # Check directory exists
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    # Log the message
+    if initLog:
+        if log_file_path:
+            with open(log_file_path, "w") as log_file: # Overwrite mode
+                log_file.write(message + "\n")
+    else:
+        if log_file_path:
+            with open(log_file_path, "a") as log_file:
+                log_file.write(message + "\n")
 
 def SampleEpisode(env,            # Environment Class
                   policy,         # Policy class 
@@ -52,20 +76,26 @@ def SampleEpisode(env,            # Environment Class
 
 def ScorePolicy(env,
                 policy,
+                max_n_steps,
                 n_episodes:  int=10000,
                 gamma:     float=0.9):
     # Initialize variables and containers
     total_reward_per_episode = []
+    total_step_per_epsiode = []
 
     # Go through the policy for each episodes
     for episode in range(n_episodes):
         # Sample the episodes
-        _, _, _, rewards, _ = SampleEpisode(env, policy, reset=True)
+        _, _, _, rewards, _ = SampleEpisode(env, policy, max_n_steps, reset=True)
  
         # Record the goal occurences and the steps to achieve it
         total_reward_per_episode.append(sum(rewards))
 
-        # Compute the scores: mean steps taken to reach goal for all episodes
-        score = np.mean(total_reward_per_episode) if total_reward_per_episode else 0
+        # Record the total step taken
+        total_step_per_epsiode.append(len(rewards))
 
-    return score, total_reward_per_episode
+    # Compute the scores: mean of reward received over all scoring episodes
+    score = np.mean(total_reward_per_episode)
+    # score = np.mean(total_reward_per_episode) if total_reward_per_episode else 0
+
+    return score, total_reward_per_episode, total_step_per_epsiode

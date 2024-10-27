@@ -3,31 +3,9 @@ from utils.utilPolicy import *
 from utils.utilRL import *
 
 import numpy as np
+import time
 import os
-import pickle
-
-def LogMessage(message,
-               logID,
-               log_dir):
-    ## Helper function to log or print the message
-    # Log file path
-    file_name = f"log_result_{logID}.txt"
-    log_file_path = os.path.join(log_dir, file_name)
-
-    # Check directory exists
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-
-    # # If log_file_path exists
-    # if os.path.exists(log_file_path):
-    #     file_name = f"log_result_{logID+1}.txt"
-    #     log_file_path = os.path.join(log_dir, file_name)
-
-    # Log the message
-    if log_file_path:
-        with open(log_file_path, "a") as log_file:
-            log_file.write(message + "\n")
-    
+import pickle    
 
 def PolicyLearnQL(env,
                   policy,
@@ -35,15 +13,17 @@ def PolicyLearnQL(env,
                   n_episode_score,
                   logID,
                   logMode,
-                  alpha:           float=0.1,
-                  gamma:           float=0.9,
-                  max_n_steps:       int=10000,
-                  print_every:       int=500,
-                  save_result:      bool=True,
-                  save_dir:          str="./02_Saved/Scores",
-                  test_log_dir:      str="./02_Saved/Log/Test",
-                  learn_log_dir:     str="./02_Saved/Log/Learn"):
-    # LOGGING INITIAL MESSAGE
+                  alpha:                float=0.1,
+                  gamma:                float=0.9,
+                  max_n_steps:            int=10000,
+                  print_every:            int=500,
+                  save_result:            bool=True,
+                  print_last_eps_res:    bool=False,
+                  save_dir:                str="./02_Saved/Scores",
+                  test_log_dir:            str="./02_Saved/Log/Test",
+                  learn_log_dir:           str="./02_Saved/Log/Learn"):
+    # Start timer
+    start_time = time.time()
 
     # Logging mode
     if logMode == "test":
@@ -55,7 +35,10 @@ def PolicyLearnQL(env,
     else:
         raise ValueError(f"Log mode '{logMode}' is not available. Please choose from 'test', 'learn', or 'none'.")
     
-    LogMessage("#################### LEARNING PARAMETERS #####################", logID, log_dir)
+    # Intial log to rewrite the log text file
+    initLog = True
+    
+    LogMessage("############################ LEARNING PARAMETERS ############################", logID, log_dir, initLog)
     LogMessage("", logID, log_dir)
     LogMessage(f"Policy improvement maximum episodes    : {n_episode_value}", logID, log_dir)
     LogMessage(f"Policy scoring maximum episodes        : {n_episode_score}", logID, log_dir)
@@ -63,11 +46,15 @@ def PolicyLearnQL(env,
     LogMessage(f"Log mode                               : {logMode}", logID, log_dir)
     LogMessage(f"Learning rate                          : {alpha}", logID, log_dir)
     LogMessage(f"Maximum number of simulation step      : {max_n_steps}", logID, log_dir)
+    LogMessage(f"Observation Space (Position [m])       : {env.observation_space.MSDPosition}", logID, log_dir)
+    LogMessage(f"Observation Space (Velocity [m/s])     : {env.observation_space.MSDVelocity}", logID, log_dir)
+    LogMessage(f"Terminal State Bound (Position [m])    : {env.terminal_state.MSDPositionTerminal}", logID, log_dir)
+    LogMessage(f"Desired Height Bound (Position [m])    : {env.y_desiredBound}", logID, log_dir)
     LogMessage(f"Printing for every: {print_every} episodes", logID, log_dir)
     
     LogMessage("", logID, log_dir)
     
-    LogMessage("################### Q-LEARNING RESULT LOG ####################", logID, log_dir)
+    LogMessage("########################## Q-LEARNING RESULT LOG ############################", logID, log_dir)
     
     LogMessage("", logID, log_dir)
 
@@ -82,8 +69,14 @@ def PolicyLearnQL(env,
     if os.path.exists(os.path.join(save_dir, qt_filename)):
         qt_filename = f"best_q_table_{logID+1}_{logMode}"
 
-    # Intializ the best score
+    # Intialize the best score
     best_score = np.inf
+
+    # Results container
+    states_list_all_episode = []
+    rewards_list_all_episode = []
+    actions_list_all_episode = []
+    terminates_list_all_episode = []
 
     # Initiate training mode
     policy.train()
@@ -91,6 +84,12 @@ def PolicyLearnQL(env,
     ############## EVALUATION-EXPLOITATION CYCLE ##############
     # Through each episode
     for episode in range(n_episode_value):
+
+        # Episodic container
+        states_per_episode = []
+        rewards_per_episode = []
+        actions_per_episode = []
+        terminates_per_episode = []
 
         # Set the policy to handle the epsilon decay
         policy.begin_episode(episode)
@@ -105,7 +104,11 @@ def PolicyLearnQL(env,
             policy.eval()
 
             # Do policy scoring
-            score, _ = ScorePolicy(env, policy, n_episode_score, gamma)
+            score, total_reward, total_step = ScorePolicy(env, 
+                                                          policy, 
+                                                          max_n_steps, 
+                                                          n_episode_score, 
+                                                          gamma)
 
             ############## SAVING SCORE STARTS ##############
             if save_result:
@@ -124,7 +127,9 @@ def PolicyLearnQL(env,
             ############## SAVING SCORES ENDS ##############
 
             # Print the score in terminal
-            LogMessage("Score: {s:.2%}".format(s=score), logID, log_dir)
+            LogMessage("Over all scoring episodes:", logID, log_dir)
+            LogMessage(f"Score: {score} ; Average step taken {np.mean(total_step)}: , Total rewards: {np.sum(total_reward)}",
+                        logID, log_dir)
 
             # Switch to training mode
             policy.train()
@@ -141,6 +146,8 @@ def PolicyLearnQL(env,
     states = env.states
     discrete_states = env.DiscretizeState(states)
 
+    states_per_episode.append(states)
+
     # Sample an action based on the policy using the discrete state
     action = policy.sample(discrete_states)
 
@@ -148,6 +155,10 @@ def PolicyLearnQL(env,
     for step in range(max_n_steps):
         # Perform forward step for the agent
         next_states, reward, done = env.step(action)
+        states_per_episode.append(next_states)
+        rewards_per_episode.append(reward)
+        actions_per_episode.append(action)
+        terminates_per_episode.append(done)
 
         # Discretize the next state
         next_discrete_states = env.DiscretizeState(next_states)
@@ -176,37 +187,36 @@ def PolicyLearnQL(env,
         discrete_states = next_discrete_states
         action = next_action
 
+        # Add st
+        states_list_all_episode.append(states_per_episode)
+        rewards_list_all_episode.append(rewards_per_episode)
+        actions_list_all_episode.append(actions_per_episode)
+        terminates_list_all_episode.append(terminates_per_episode)
+
     # Switch to training mode
     policy.train()
-    
-    # ############## FINAL POLICY EVALUATION ##############
-    # # Print last episode and epsilon
-    # LogMessage(f"Q-Learning episode: {episode + 1}, epsilon: {policy.epsilon: .2f}", logID, log_dir)
 
-    # # Turn evaluation mode on
-    # policy.eval()
-    
-    # # Do last policy scoring
-    # score, _ = ScorePolicy(env, policy, n_episode_score, gamma)
+    # Stop timer
+    end_time = time.time()
+    e_time = end_time - start_time
 
-    # ############## SAVING SCORE STARTS ##############
-    # if save_result:
-    #     # Save the best QL scores
-    #     if score > best_score:
-    #         best_score = score
-
-    #         # Save the best scores and the Q-table
-    #         save_path = os.path.join(save_dir, qt_filename)
-    #         with open(save_path, "wb") as f:
-    #             pickle.dump({
-    #                         "Episode" : episode + 1,
-    #                         "Score"   : score,
-    #                         "Q-table" : policy.q,
-    #                     }, f)
-    #         ############## SAVING SCORES ENDS ##############
-
-    # # Print the score in terminal
-    # LogMessage("Score: {s:.2%}".format(s=score), logID, log_dir)
-    # LogMessage("", logID, log_dir)
-    # LogMessage("##############################################################", logID, log_dir)
-    return
+    # Print result in logfiles
+    if print_last_eps_res:
+        LogMessage("########################## LAST EPISODE RESULTS #############################", logID, log_dir)
+        pos = states_list_all_episode[-1][0][0]
+        vel = states_list_all_episode[-1][0][1]
+        len_state = len(states_list_all_episode[-1])
+        len_step = len(actions_list_all_episode[-1])
+        tot_rew = sum(rewards_list_all_episode[-1])
+        LogMessage("-----------------------------------------------------------------------------", logID, log_dir)
+        LogMessage(f"States visited: {len_state} | Step taken: {len_step} | Total rewards: {tot_rew} | Elapsed Time: {e_time:.1f}", logID, log_dir)
+        LogMessage("-----------------------------------------------------------------------------", logID, log_dir)
+        LogMessage(f"act:  -    | ter:   -   | rew: - |  pos: {pos:.3f} | vel: {vel:.3f}", logID, log_dir)
+        for i in range(len(rewards_list_all_episode[-1])):
+            rew = rewards_list_all_episode[-1][i]
+            act = "Idle" if actions_list_all_episode[-1][i]==0 else "Push"
+            ter = "False" if terminates_list_all_episode[-1][i] else "True"
+            pos = states_list_all_episode[-1][i+1][0]
+            vel = states_list_all_episode[-1][i+1][1]
+            LogMessage(f"act: {act:<5} | ter: {ter:<5} | rew: {rew:-} | pos: {pos:>6.3f} | vel: {vel:>6.3f}", logID, log_dir)
+    return 

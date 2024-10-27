@@ -43,7 +43,8 @@ y_desired = 2.5
 
 ## Reset, sample, and score test episode
 # Instantiate environment
-env = EnvironmentMSD(y_desired)
+force = 20
+env = EnvironmentMSD(y_desired, force=force)
 
 # FOR DEBUGGING
 n_episode_value = 5  # Number of episodes required to compute the action value
@@ -51,14 +52,14 @@ n_episode_score = 1  # Number of episodes required for socring te policy
 bin_numbers=10          # Bin numbers
 alpha=0.1               # Learning rate
 gamma=0.9               # Reward discount rate
-max_n_steps=10        # Maximum number of steps in a single episodes
+max_n_steps=100000        # Maximum number of steps in a single episodes
 print_every=2         # The episodes when the score is printed
 epsilon = 1.0            # Explorative coefficient
 epsilon_decay = 0.9995   # Decays the epsilon as the episodes goes
 epsilon_min = 0.01       # The minimum epsilon after decay
 
 # Initialize the action-value table
-bin_numbers = env.bin_numbers
+bin_numbers = env.binNumbers
 observation_space_number = env.observation_space.n
 action_space_number = env.action_space.n
 
@@ -75,21 +76,27 @@ QL_policy = EpsilonGreedyPolicy(env.action_space,
 env.reset()
 
 # Set the max_n_step and run sampling
-max_n_steps = 1000
+max_n_steps = 100000
 
 # Test Sampling
-# disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL_policy, max_n_steps=max_n_steps)
+disc_observations, observations, actions, rewards, dones = SampleEpisode(env, QL_policy, max_n_steps=max_n_steps)
 
 # print(disc_observations)
 # print(observations)
 # print(actions)
-# print(rewards)
+# print(env.observation_space.MSDPosition)
+# print(env.observation_space.MSDVelocity)
+# print(env.terminal_state.MSDPositionTerminal) 
+print(len(rewards))
+# print(len(actions))
+# print(len(actions.count(0)))
+# print(len(actions.count(1)))
 # print(dones)
 
-score, _ = ScorePolicy(env, QL_policy, n_episode_score, gamma)
+# score, _ = ScorePolicy(env, QL_policy, n_episode_score, gamma)
 
-print(env.terminal_state.MSDPositionTerminal)
-print(env.y_desiredBound)
-print(score)
+# print(env.terminal_state.MSDPositionTerminal)
+# print(env.y_desiredBound)
+# print(score)
 
 env.CoSimInstance.PlotTimeSeries(separate_plots=True)

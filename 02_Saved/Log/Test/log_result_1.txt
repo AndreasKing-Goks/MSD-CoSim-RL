@@ -1,27 +1,63 @@
-#################### LEARNING PARAMETERS #####################
+############################ LEARNING PARAMETERS ############################
 
-Policy improvement maximum episodes    : 10
-Policy scoring maximum episodes        : 10
+Policy improvement maximum episodes    : 2
+Policy scoring maximum episodes        : 2
 Log ID                                 : 1
 Log mode                               : test
 Learning rate                          : 0.1
-Maximum number of simulation step      : 10
+Maximum number of simulation step      : 1000
+Observation Space (Position [m])       : [-10, 10]
+Observation Space (Velocity [m/s])     : [-10, 10]
+Terminal State Bound (Position [m])    : [-4.0, 6.0]
+Desired Height Bound (Position [m])    : [0.75, 1.25]
 Printing for every: 2 episodes
 
-################### Q-LEARNING RESULT LOG ####################
+########################## Q-LEARNING RESULT LOG ############################
 
 Q-Learning episode: 2, epsilon:  1.00
-Score: 0.00%
+Over all scoring episodes:
+Score: 0.0 ; Average step taken 11.0: , Total rewards: 0
 
-Q-Learning episode: 4, epsilon:  1.00
-Score: 0.00%
-
-Q-Learning episode: 6, epsilon:  1.00
-Score: 0.00%
-
-Q-Learning episode: 8, epsilon:  1.00
-Score: 0.00%
-
-Q-Learning episode: 10, epsilon:  1.00
-Score: 0.00%
-
+########################## LAST EPISODE RESULTS #############################
+-----------------------------------------------------------------------------
+States visited: 39 | Step taken: 38 | Total rewards: 3 | Elapsed Time: 2.2
+-----------------------------------------------------------------------------
+act:  -    | ter:   -   | rew: - |  pos: 0.000 | vel: 0.000
+act: Push  | ter: True  | rew: 0 | pos:  0.050 | vel:  1.019
+act: Push  | ter: True  | rew: 0 | pos:  0.203 | vel:  2.038
+act: Push  | ter: True  | rew: 0 | pos:  0.451 | vel:  2.945
+act: Push  | ter: True  | rew: 1 | pos:  0.785 | vel:  3.730
+act: Idle  | ter: True  | rew: 1 | pos:  1.092 | vel:  2.394
+act: Idle  | ter: True  | rew: 0 | pos:  1.259 | vel:  0.943
+act: Push  | ter: True  | rew: 0 | pos:  1.386 | vel:  1.601
+act: Push  | ter: True  | rew: 0 | pos:  1.585 | vel:  2.395
+act: Push  | ter: True  | rew: 0 | pos:  1.860 | vel:  3.107
+act: Push  | ter: True  | rew: 0 | pos:  2.201 | vel:  3.716
+act: Push  | ter: True  | rew: 0 | pos:  2.598 | vel:  4.223
+act: Push  | ter: True  | rew: 0 | pos:  3.040 | vel:  4.631
+act: Push  | ter: True  | rew: 0 | pos:  3.519 | vel:  4.947
+act: Push  | ter: True  | rew: 0 | pos:  4.025 | vel:  5.175
+act: Idle  | ter: True  | rew: 0 | pos:  4.451 | vel:  3.323
+act: Idle  | ter: True  | rew: 0 | pos:  4.688 | vel:  1.396
+act: Idle  | ter: True  | rew: 0 | pos:  4.739 | vel: -0.380
+act: Idle  | ter: True  | rew: 0 | pos:  4.622 | vel: -1.976
+act: Idle  | ter: True  | rew: 0 | pos:  4.355 | vel: -3.391
+act: Idle  | ter: True  | rew: 0 | pos:  3.955 | vel: -4.627
+act: Push  | ter: True  | rew: 0 | pos:  3.538 | vel: -3.687
+act: Push  | ter: True  | rew: 0 | pos:  3.225 | vel: -2.577
+act: Idle  | ter: True  | rew: 0 | pos:  2.920 | vel: -3.525
+act: Push  | ter: True  | rew: 0 | pos:  2.615 | vel: -2.558
+act: Idle  | ter: True  | rew: 0 | pos:  2.315 | vel: -3.460
+act: Idle  | ter: True  | rew: 0 | pos:  1.921 | vel: -4.434
+act: Idle  | ter: True  | rew: 0 | pos:  1.435 | vel: -5.283
+act: Idle  | ter: True  | rew: 1 | pos:  0.872 | vel: -5.990
+act: Idle  | ter: True  | rew: 0 | pos:  0.245 | vel: -6.560
+act: Push  | ter: True  | rew: 0 | pos: -0.334 | vel: -4.999
+act: Push  | ter: True  | rew: 0 | pos: -0.751 | vel: -3.315
+act: Idle  | ter: True  | rew: 0 | pos: -1.103 | vel: -3.738
+act: Idle  | ter: True  | rew: 0 | pos: -1.504 | vel: -4.295
+act: Idle  | ter: True  | rew: 0 | pos: -1.958 | vel: -4.773
+act: Idle  | ter: True  | rew: 0 | pos: -2.454 | vel: -5.153
+act: Idle  | ter: True  | rew: 0 | pos: -2.983 | vel: -5.437
+act: Idle  | ter: True  | rew: 0 | pos: -3.536 | vel: -5.631
+act: Idle  | ter: False | rew: 0 | pos: -4.105 | vel: -5.742
