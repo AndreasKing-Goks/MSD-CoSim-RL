@@ -56,7 +56,7 @@ class EpsilonGreedyPolicy(GreedyPolicy):
         if self.training and (np.random.random() <= self.epsilon):
             action = self.action_space.sample()
         else:                                       # Evaluation mode
-            action = np.argmax(self.q[state])
+            action = int(np.argmax(self.q[state]))
         return action
     
     def begin_episode(self, episode_index):

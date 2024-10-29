@@ -35,11 +35,11 @@ y_desired = 2.5
 # damp_coef=1
 
 # # Run the environment
-# env = EnvironmentMSD(y_desired, mass=mass, stiff_coef=stiff_coef, damp_coef=damp_coef)
+# env = EnvironmentMSD(y_desired, mass=mass, stiffCoef=stiff_coef, dampCoef=damp_coef)
 # env.InitializeCoSim()
 # env.CoSimInstance.Simulate()
 # env.CoSimInstance.PlotTimeSeries(separate_plots=True)
-#PASS
+# # PASS
 
 ## Reset, sample, and score test episode
 # Instantiate environment
@@ -78,8 +78,6 @@ env.reset()
 # Set the max_n_step and run sampling
 max_n_steps = 100000
 
-# env.InitializeCoSim()
-
 # # Test Sampling
 step_taken_list = []
 total_reward_received_list = []
@@ -89,17 +87,21 @@ eps = 5
 QL_policy.eval()
 # QL_policy.train()
 
-# for i in range(eps):
-#     disc_observations, observations, actions, rewards, dones = SampleEpisode(env, 
-#                                                                          QL_policy, 
-#                                                                          max_n_steps)
-#     step_taken_list.append(len(actions))
-#     total_reward_received_list.append(sum(rewards))
+# QL_policy.q = mockup_q = np.random.rand(*init_q.shape)
 
-# print(step_taken_list)
-# print(np.mean(step_taken_list))
-# print(total_reward_received_list)
-# print(np.mean(total_reward_received_list))
+for i in range(eps):
+    disc_observations, observations, actions, rewards, dones = SampleEpisode(env, 
+                                                                         QL_policy, 
+                                                                         max_n_steps)
+    step_taken_list.append(len(actions))
+    total_reward_received_list.append(sum(rewards))
+
+print(QL_policy.q)
+print(step_taken_list)
+print(np.mean(step_taken_list))
+print(total_reward_received_list)
+print(np.mean(total_reward_received_list))
+
 
 # # print(disc_observations)
 # # print(observations)
@@ -114,15 +116,34 @@ QL_policy.eval()
 # # print(len(actions.count(1)))
 # # print(dones)
 
-score, total_reward, total_step = ScorePolicy(env, 
-                                              QL_policy, 
-                                              max_n_steps, 
-                                              n_episode_score, 
-                                              gamma)
+# best_q_table_path = r'02_Saved\Scores\best_q_table_2_learn'
 
-print(score)
-print(total_reward)
-print(total_step)
-print(QL_policy.q)
 
-env.CoSimInstance.PlotTimeSeries(separate_plots=True)
+# # Load the best Q-table if it exists and compare scores
+# if os.path.exists(best_q_table_path):
+#     with open(best_q_table_path, 'rb') as f:
+#         best_data = pickle.load(f)
+#         best_q_table = best_data['Q-table']
+#         best_score = best_data['Score']
+    
+#         # Overwrite the current Q-table with the best Q-table
+#         QL_policy.q = best_q_table
+# else:
+#     print("Trained data is not found")
+
+# # print(best_q_table)
+# print(QL_policy.q)
+
+# score, total_reward, total_step = ScorePolicy(env, 
+#                                               QL_policy, 
+#                                               max_n_steps, 
+#                                               n_episode_score)
+
+# print(f'{score:.2%}')
+# print(total_reward)
+# print(total_step)
+# print(action_taken)
+# # print(QL_policy.q)
+
+
+# env.CoSimInstance.PlotTimeSeries(separate_plots=True)

@@ -290,7 +290,7 @@ class ActionSpaceMSD:
         self.n = len(self.all_force)                        # Number of action space
     
     def sample(self):
-        magnitude = np.random.choice(self.all_force)
+        magnitude = int(np.random.choice(self.all_force))
         action = self.all_force.index(magnitude)
         return action
     
@@ -338,9 +338,17 @@ class EnvironmentMSD:
         self.action_taken =[]
 
         # Target tolerance
-        downTolerance  = (self.y_desired - self.y_desiredTolerance) if (self.y_desired - self.y_desiredTolerance)>self.observation_space.MSDPosition[0] else self.observation_space.MSDPosition[0]
-        upperTolerance = (self.y_desired + self.y_desiredTolerance) if (self.y_desired + self.y_desiredTolerance)<self.observation_space.MSDPosition[1] else self.observation_space.MSDPosition[1]
-        self.y_desiredBound = [downTolerance, upperTolerance]
+        downToleranceLow  = (self.y_desired - self.y_desiredTolerance) if (self.y_desired - self.y_desiredTolerance)>self.observation_space.MSDPosition[0] else self.observation_space.MSDPosition[0]
+        upperToleranceLow = (self.y_desired + self.y_desiredTolerance) if (self.y_desired + self.y_desiredTolerance)<self.observation_space.MSDPosition[1] else self.observation_space.MSDPosition[1]
+        self.y_desiredBoundLow = [downToleranceLow, upperToleranceLow]
+
+        downToleranceMed  = (self.y_desired - self.y_desiredTolerance/2) if (self.y_desired - self.y_desiredTolerance/2)>self.observation_space.MSDPosition[0] else self.observation_space.MSDPosition[0]
+        upperToleranceMed = (self.y_desired + self.y_desiredTolerance/2) if (self.y_desired + self.y_desiredTolerance/2)<self.observation_space.MSDPosition[1] else self.observation_space.MSDPosition[1]
+        self.y_desiredBoundMed = [downToleranceMed, upperToleranceMed]
+
+        downToleranceHi  = (self.y_desired - self.y_desiredTolerance/4) if (self.y_desired - self.y_desiredTolerance/4)>self.observation_space.MSDPosition[0] else self.observation_space.MSDPosition[0]
+        upperToleranceHi = (self.y_desired + self.y_desiredTolerance/4) if (self.y_desired + self.y_desiredTolerance/4)<self.observation_space.MSDPosition[1] else self.observation_space.MSDPosition[1]
+        self.y_desiredBoundHi = [downToleranceHi, upperToleranceHi]
 
         ############ Initial States ############
         ## Continuous Space
@@ -429,7 +437,7 @@ class EnvironmentMSD:
         states_discretized = [y_discrete, y_dot_discrete] # Made a vector of discretized vector
 
         # Flat indexing of the discretized vector
-        discrete_states = np.ravel_multi_index((states_discretized[0], states_discretized[1]), state_shape)
+        discrete_states = int(np.ravel_multi_index((states_discretized[0], states_discretized[1]), state_shape))
 
         return discrete_states
     
@@ -443,9 +451,25 @@ class EnvironmentMSD:
         )
 
         # Check if targe tolerance condition met
-        downCondition = states[0] > self.y_desiredBound[0]
-        upCondition = states[0] < self.y_desiredBound[1]
-        reward = 1 if upCondition and downCondition else 0
+        lowDownCond = states[0] > self.y_desiredBoundLow[0]
+        lowUpCond = states[0] < self.y_desiredBoundLow[1]
+
+        medDownCond = states[0] > self.y_desiredBoundMed[0]
+        medUpCond = states[0] < self.y_desiredBoundMed[1]
+
+        hiDownCond = states[0] > self.y_desiredBoundHi[0]
+        hiUpCond = states[0] < self.y_desiredBoundHi[1]
+
+        reward = -2
+
+        if lowUpCond and lowDownCond:
+            reward = 1
+
+        if medDownCond and medUpCond:
+            reward = 2
+
+        if hiDownCond and hiUpCond:
+            reward = 4
 
         return reward, done
     

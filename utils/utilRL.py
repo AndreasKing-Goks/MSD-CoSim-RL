@@ -78,7 +78,7 @@ def ScorePolicy(env, policy, max_n_steps, n_episodes: int = 10000):
     # Initialize containers
     total_reward_per_episode = []
     total_step_per_episode = []
-    total_score_per_episode = []
+    # total_score_per_episode = []
 
     # Go through the policy for each episode
     for episode in range(n_episodes):
@@ -94,13 +94,14 @@ def ScorePolicy(env, policy, max_n_steps, n_episodes: int = 10000):
         total_step_per_episode.append(episode_steps)
 
         # Calculate the normalized score for the episode
-        if episode_steps > 0:
-            score_ratio = episode_reward / episode_steps
-        else:
-            score_ratio = 0  # Handle case where no steps were taken
-        total_score_per_episode.append(score_ratio)
+        # score_ratio = episode_reward / episode_steps
+        # if episode_steps > 0:
+        #     score_ratio = episode_reward / episode_steps
+        # else:
+        #     score_ratio = 0  # Handle case where no steps were taken
+        # total_score_per_episode.append(score_ratio)
 
     # Compute the scores: normalized score across episodes
-    score = np.mean(total_score_per_episode)
+    score = np.mean(total_reward_per_episode)
 
     return score, total_reward_per_episode, total_step_per_episode
