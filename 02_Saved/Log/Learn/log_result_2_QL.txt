@@ -1,0 +1,435 @@
+############################### LEARNING PARAMETERS ################################
+
+Policy improvement maximum episodes         : 10000
+Policy scoring maximum episodes             : 100
+Log ID                                      : 2
+Log mode                                    : learn
+Learning rate                               : 0.1
+Maximum number of simulation step           : 1000
+Observation space (Position [m])            : [-10, 10]
+Observation space (Velocity [m/s])          : [-10, 10]
+Terminal state bound (Position [m])         : [-4.0, 6.0]
+Desired height (Position [m])               : 1
+Printing for every                          : 100 episodes
+
+############################# Q-LEARNING RESULT LOG ################################
+
+Note:
+Score is defined as the ratio between the obtained rewards and the total steps
+taken, averaged across all the scoring episodes.
+
+Q-Learning episode: 100, epsilon:  0.99
+New best score of -8.0 achieved at episode 100
+Best Q-table saved to ./02_Saved\Scores\best_q_table_2_learn.pkl
+Over all scoring episodes:
+Score: -8.0 ; Average step taken 8.0:
+
+Q-Learning episode: 200, epsilon:  0.98
+New best score of -2.0 achieved at episode 200
+Best Q-table saved to ./02_Saved\Scores\best_q_table_2_learn.pkl
+Over all scoring episodes:
+Score: -2.0 ; Average step taken 27.0:
+
+Q-Learning episode: 300, epsilon:  0.97
+Over all scoring episodes:
+Score: -8.0 ; Average step taken 25.0:
+
+Q-Learning episode: 400, epsilon:  0.96
+Over all scoring episodes:
+Score: -8.0 ; Average step taken 8.0:
+
+Q-Learning episode: 500, epsilon:  0.95
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 600, epsilon:  0.94
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 700, epsilon:  0.93
+Over all scoring episodes:
+Score: -7.0 ; Average step taken 7.0:
+
+Q-Learning episode: 800, epsilon:  0.92
+Over all scoring episodes:
+Score: -7.0 ; Average step taken 7.0:
+
+Q-Learning episode: 900, epsilon:  0.91
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1000, epsilon:  0.90
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1100, epsilon:  0.90
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1200, epsilon:  0.89
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1300, epsilon:  0.88
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1400, epsilon:  0.87
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1500, epsilon:  0.86
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1600, epsilon:  0.85
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1700, epsilon:  0.84
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 1800, epsilon:  0.84
+Over all scoring episodes:
+Score: -7.0 ; Average step taken 7.0:
+
+Q-Learning episode: 1900, epsilon:  0.83
+Over all scoring episodes:
+Score: -8.0 ; Average step taken 25.0:
+
+Q-Learning episode: 2000, epsilon:  0.82
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 23.0:
+
+Q-Learning episode: 2100, epsilon:  0.81
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2200, epsilon:  0.80
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2300, epsilon:  0.79
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2400, epsilon:  0.79
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2500, epsilon:  0.78
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2600, epsilon:  0.77
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2700, epsilon:  0.76
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2800, epsilon:  0.76
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 2900, epsilon:  0.75
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3000, epsilon:  0.74
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3100, epsilon:  0.73
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3200, epsilon:  0.73
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3300, epsilon:  0.72
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3400, epsilon:  0.71
+Over all scoring episodes:
+Score: -7.0 ; Average step taken 7.0:
+
+Q-Learning episode: 3500, epsilon:  0.70
+Over all scoring episodes:
+Score: -7.0 ; Average step taken 7.0:
+
+Q-Learning episode: 3600, epsilon:  0.70
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3700, epsilon:  0.69
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3800, epsilon:  0.68
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 3900, epsilon:  0.68
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4000, epsilon:  0.67
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4100, epsilon:  0.66
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4200, epsilon:  0.66
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4300, epsilon:  0.65
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4400, epsilon:  0.64
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4500, epsilon:  0.64
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4600, epsilon:  0.63
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4700, epsilon:  0.63
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4800, epsilon:  0.62
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 4900, epsilon:  0.61
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5000, epsilon:  0.61
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5100, epsilon:  0.60
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5200, epsilon:  0.59
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5300, epsilon:  0.59
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5400, epsilon:  0.58
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5500, epsilon:  0.58
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5600, epsilon:  0.57
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5700, epsilon:  0.57
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5800, epsilon:  0.56
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 5900, epsilon:  0.55
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6000, epsilon:  0.55
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6100, epsilon:  0.54
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6200, epsilon:  0.54
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6300, epsilon:  0.53
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6400, epsilon:  0.53
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6500, epsilon:  0.52
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6600, epsilon:  0.52
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6700, epsilon:  0.51
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6800, epsilon:  0.51
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 6900, epsilon:  0.50
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7000, epsilon:  0.50
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7100, epsilon:  0.49
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7200, epsilon:  0.49
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7300, epsilon:  0.48
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7400, epsilon:  0.48
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7500, epsilon:  0.47
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7600, epsilon:  0.47
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7700, epsilon:  0.46
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7800, epsilon:  0.46
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 7900, epsilon:  0.45
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8000, epsilon:  0.45
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8100, epsilon:  0.44
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8200, epsilon:  0.44
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8300, epsilon:  0.44
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8400, epsilon:  0.43
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8500, epsilon:  0.43
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8600, epsilon:  0.42
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8700, epsilon:  0.42
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8800, epsilon:  0.41
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 8900, epsilon:  0.41
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9000, epsilon:  0.41
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9100, epsilon:  0.40
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9200, epsilon:  0.40
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9300, epsilon:  0.39
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9400, epsilon:  0.39
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9500, epsilon:  0.39
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9600, epsilon:  0.38
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9700, epsilon:  0.38
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9800, epsilon:  0.38
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 9900, epsilon:  0.37
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+Q-Learning episode: 10000, epsilon:  0.37
+Over all scoring episodes:
+Score: -6.0 ; Average step taken 6.0:
+
+############################# LAST EPISODE RESULTS #################################
+------------------------------------------------------------------------------------
+States visited: 7 | Step taken: 6 | Total rewards: -6 | Elapsed Time: 16223.2
+------------------------------------------------------------------------------------
+act:  -    | ter:   -   | rew: -  |  pos: 0.000 | vel: 0.000
+act: Down  | ter: False | rew: -1 | pos: -0.123 | vel: -2.481
+act: Down  | ter: False | rew: -1 | pos: -0.494 | vel: -4.962
+act: Down  | ter: False | rew: -1 | pos: -1.099 | vel: -7.170
+act: Down  | ter: False | rew: -1 | pos: -1.911 | vel: -9.080
+act: Down  | ter: False | rew: -1 | pos: -2.899 | vel: -10.698
+act: Down  | ter: True  | rew: -1 | pos: -4.035 | vel: -12.034

@@ -1,0 +1,84 @@
+############################### LEARNING PARAMETERS ################################
+
+Policy improvement maximum episodes         : 1000
+Policy scoring maximum episodes             : 100
+Log ID                                      : 4
+Log mode                                    : learn
+Learning rate                               : 0.1
+Maximum number of simulation step           : 1000
+Observation space (Position [m])            : [-10, 10]
+Observation space (Velocity [m/s])          : [-10, 10]
+Terminal state bound (Position [m])         : [-4.0, 6.0]
+Desired height (Position [m])               : 1
+Printing for every                          : 100.0 episodes
+
+############################# Q-LEARNING RESULT LOG ################################
+
+Note:
+Score is defined as the ratio between the obtained rewards and the total steps
+taken, averaged across all the scoring episodes.
+
+Q-Learning episode: 100, epsilon:  0.98
+New best score of -988.0 achieved at episode 100
+Best Q-table saved to ./02_Saved\Scores\best_q_table_4_learn.pkl
+Over all scoring episodes:
+Score: -988.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 200, epsilon:  0.95
+New best score of -601.0 achieved at episode 200
+Best Q-table saved to ./02_Saved\Scores\best_q_table_4_learn.pkl
+Over all scoring episodes:
+Score: -601.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 300, epsilon:  0.93
+Over all scoring episodes:
+Score: -970.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 400, epsilon:  0.91
+New best score of 2380.0 achieved at episode 400
+Best Q-table saved to ./02_Saved\Scores\best_q_table_4_learn.pkl
+Over all scoring episodes:
+Score: 2380.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 500, epsilon:  0.88
+Over all scoring episodes:
+Score: -978.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 600, epsilon:  0.86
+Over all scoring episodes:
+Score: -1000.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 700, epsilon:  0.84
+Over all scoring episodes:
+Score: -939.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 800, epsilon:  0.82
+Over all scoring episodes:
+Score: -591.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 900, epsilon:  0.80
+Over all scoring episodes:
+Score: -631.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 1000, epsilon:  0.78
+Over all scoring episodes:
+Score: -836.0 ; Average step taken 1000.0:
+
+############################# LAST EPISODE RESULTS #################################
+------------------------------------------------------------------------------------
+States visited: 14 | Step taken: 13 | Total rewards: -10012 | Elapsed Time: 2255.5
+------------------------------------------------------------------------------------
+act:  -    | ter:   -   | rew: -  |  pos: 0.000 | vel: 0.000
+act: Up    | ter: False | rew: -1 | pos:  0.100 | vel:  2.019
+act: Down  | ter: False | rew: -1 | pos:  0.179 | vel: -0.462
+act: Up    | ter: False | rew: -1 | pos:  0.222 | vel:  1.335
+act: Idle  | ter: False | rew: -1 | pos:  0.308 | vel:  0.385
+act: Down  | ter: False | rew: -1 | pos:  0.216 | vel: -2.259
+act: Idle  | ter: False | rew: -1 | pos: -0.062 | vel: -3.311
+act: Down  | ter: False | rew: -1 | pos: -0.505 | vel: -5.576
+act: Down  | ter: False | rew: -1 | pos: -1.168 | vel: -7.703
+act: Up    | ter: False | rew: -1 | pos: -1.807 | vel: -5.048
+act: Down  | ter: False | rew: -1 | pos: -2.389 | vel: -6.603
+act: Up    | ter: False | rew: -1 | pos: -2.914 | vel: -3.873
+act: Down  | ter: False | rew: -1 | pos: -3.378 | vel: -5.421
+act: Down  | ter: True  | rew: -10000 | pos: -4.008 | vel: -7.204

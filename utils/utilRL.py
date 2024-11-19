@@ -4,10 +4,11 @@ import os
 def LogMessage(message,
                logID,
                log_dir,
+               mode,
                initLog=False):
     ## Helper function to log or print the message
     # Log file path
-    file_name = f"log_result_{logID}.txt"
+    file_name = f"log_result_{logID}_{mode}.txt"
     log_file_path = os.path.join(log_dir, file_name)
 
     # Check directory exists

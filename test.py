@@ -85,7 +85,7 @@ total_reward_received_list = []
 eps = 5
 
 QL_policy.eval()
-# QL_policy.train()
+QL_policy.train()
 
 # QL_policy.q = mockup_q = np.random.rand(*init_q.shape)
 
@@ -146,4 +146,4 @@ print(np.mean(total_reward_received_list))
 # # print(QL_policy.q)
 
 
-# env.CoSimInstance.PlotTimeSeries(separate_plots=True)
+env.CoSimInstance.PlotTimeSeries(separate_plots=True)

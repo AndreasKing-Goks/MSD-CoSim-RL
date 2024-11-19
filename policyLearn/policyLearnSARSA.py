@@ -7,26 +7,26 @@ import time
 import os
 import pickle    
 
-def PolicyLearnQL(env,
-                  policy,
-                  n_episode_value,
-                  n_episode_score,
-                  logID,
-                  logMode,
-                  alpha:                float=0.1,
-                  gamma:                float=0.9,
-                  max_n_steps:            int=10000,
-                  print_every:            int=500,
-                  save_result:           bool=True,
-                  print_last_eps_res:    bool=False,
-                  save_dir:               str="./02_Saved\Scores",
-                  test_log_dir:           str="./02_Saved\Log\Test",
-                  learn_log_dir:          str="./02_Saved\Log\Learn"):
+def PolicyLearnSARSA(env,
+                     policy,
+                     n_episode_value,
+                     n_episode_score,
+                     logID,
+                     logMode,
+                     alpha:                float=0.1,
+                     gamma:                float=0.9,
+                     max_n_steps:            int=10000,
+                     print_every:            int=500,
+                     save_result:           bool=True,
+                     print_last_eps_res:    bool=False,
+                     save_dir:               str="./02_Saved\Scores",
+                     test_log_dir:           str="./02_Saved\Log\Test",
+                     learn_log_dir:          str="./02_Saved\Log\Learn"):
     # Start timer
     start_time = time.time()
 
     # Learning type
-    mode = "QL"
+    mode = "SARSA"
 
     # Logging mode
     if logMode == "test":
@@ -73,7 +73,7 @@ def PolicyLearnQL(env,
         os.makedirs(save_dir)
 
     # Set q tables file name
-    qt_filename = f"best_q_table_{logID}_{logMode}_QL.pkl"
+    qt_filename = f"best_q_table_{logID}_{logMode}_SARSA.pkl"
 
     # Intialize the best score
     best_score = -np.inf

@@ -286,7 +286,7 @@ class ActionSpaceMSD:
     def __init__(self, 
                  force):
         self.force = force                                  # Newton
-        self.all_force = [0, self.force]
+        self.all_force = [0, 2*self.force, -self.force]
         self.n = len(self.all_force)                        # Number of action space
     
     def sample(self):
@@ -460,7 +460,7 @@ class EnvironmentMSD:
         hiDownCond = states[0] > self.y_desiredBoundHi[0]
         hiUpCond = states[0] < self.y_desiredBoundHi[1]
 
-        reward = -2
+        reward = -1
 
         if lowUpCond and lowDownCond:
             reward = 1
@@ -470,6 +470,9 @@ class EnvironmentMSD:
 
         if hiDownCond and hiUpCond:
             reward = 4
+
+        if done:
+            reward = -100
 
         return reward, done
     
@@ -508,3 +511,69 @@ class EnvironmentMSD:
 
         # Set the initial states
         self.states = self.initial_states
+    
+    def PlotTimeSeriesResult(self, separate_plots: bool = False, create_window: bool = True, show: bool = True, legend: bool = True, plot_legend: str=""):
+        # Only proceed if "position" key exists in the observer structure
+        if "position" in self.CoSimInstance.observer_time_series_struct:
+            time_points, step_number, samples = self.CoSimInstance.GetObserverTimeSeries("position")
+        
+            # Separate plot for the position variable only
+            if separate_plots:
+                plt.figure()
+                label = plot_legend + ": " + self.CoSimInstance.instanceName + ": position"
+                plt.plot(time_points, samples, label=label)
+
+                # Add shaded regions and annotations for the reward zones
+                plt.axhspan(self.y_desiredBoundHi[0], self.y_desiredBoundHi[1], color='green', alpha=0.3, label="High Reward Zone")
+                plt.axhspan(self.y_desiredBoundMed[0], self.y_desiredBoundMed[1], color='yellow', alpha=0.2, label="Medium Reward Zone")
+                plt.axhspan(self.y_desiredBoundLow[0], self.y_desiredBoundLow[1], color='red', alpha=0.2, label="Low Reward Zone")
+                plt.axhspan(self.terminal_state.MSDPositionTerminal[0], self.terminal_state.MSDPositionTerminal[1], color='black', alpha=0.1, label="Negative Reward Zone")
+            
+                # Adding text annotations for each zone
+                # plt.text(time_points[-1], 1, "High Reward Zone", color="green", verticalalignment='center')
+                # plt.text(time_points[-1], 1.15, "Low Reward Zone", color="yellow", verticalalignment='center')
+                # plt.text(time_points[-1], 1.3, "Negative Reward Zone", color="red", verticalalignment='center')
+                plt.text(time_points[-1]-20, self.terminal_state.MSDPositionTerminal[0]-0.5, "Termination Zone", color="black", verticalalignment='center')
+                plt.text(time_points[-1]-20, self.terminal_state.MSDPositionTerminal[1]+0.5, "Termination Zone", color="black", verticalalignment='center')
+            
+                # Set y-axis limits specifically for the position plot
+                plt.ylim(-10, 10)
+
+                plt.xlabel("Time [s]")
+                plt.title(f"Time series from co-simulation instance \"{self.CoSimInstance.instanceName}\" (position)")
+                plt.grid(True)
+                if legend:
+                    plt.legend()
+
+            # Combined plot for position (if separate_plots=False)
+            else:
+                if create_window and self.CoSimInstance.first_plot:
+                    plt.figure()
+                    self.first_plot = False
+
+                label = plot_legend + ": " + self.CoSimInstance.instanceName + ": position"
+                plt.plot(time_points, samples, label=label)
+
+                # Add reward zones to the combined plot
+                plt.axhspan(self.y_desiredBoundHi[0], self.y_desiredBoundHi[1], color='green', alpha=0.3, label="High Reward Zone")
+                plt.axhspan(self.y_desiredBoundMed[0], self.y_desiredBoundMed[1], color='yellow', alpha=0.2, label="Medium Reward Zone")
+                plt.axhspan(self.y_desiredBoundLow[0], self.y_desiredBoundLow[1], color='red', alpha=0.2, label="Low Reward Zone")
+                plt.axhspan(self.terminal_state.MSDPositionTerminal[0], self.terminal_state.MSDPositionTerminal[1], color='black', alpha=0.1, label="Negative Reward Zone")
+
+                # Adding text annotations for each zone
+                # plt.text(time_points[-1], 1, "High Reward Zone", color="green", verticalalignment='center')
+                # plt.text(time_points[-1], 1.15, "Low Reward Zone", color="yellow", verticalalignment='center')
+                # plt.text(time_points[-1], 1.3, "Negative Reward Zone", color="red", verticalalignment='center')
+                plt.text(time_points[-1]-20, self.terminal_state.MSDPositionTerminal[0]-0.5, "Termination Zone", color="black", verticalalignment='center')
+                plt.text(time_points[-1]-20, self.terminal_state.MSDPositionTerminal[1]+0.5, "Termination Zone", color="black", verticalalignment='center')
+
+                plt.xlabel("Time [s]")
+                plt.ylim(-10, 10)
+                plt.title(f"Time series from co-simulation instance \"{self.CoSimInstance.instanceName}\" (position)")
+                plt.grid(True)
+                if legend:
+                    plt.legend()
+    
+        # Show the plot at the end
+        if show:
+            plt.show()

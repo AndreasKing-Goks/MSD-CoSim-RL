@@ -1,0 +1,132 @@
+############################### LEARNING PARAMETERS ################################
+
+Policy improvement maximum episodes         : 1000
+Policy scoring maximum episodes             : 100
+Log ID                                      : 3
+Log mode                                    : learn
+Learning rate                               : 0.1
+Maximum number of simulation step           : 1000
+Observation space (Position [m])            : [-10, 10]
+Observation space (Velocity [m/s])          : [-10, 10]
+Terminal state bound (Position [m])         : [-4.0, 6.0]
+Desired height (Position [m])               : 1
+Printing for every                          : 100.0 episodes
+
+############################# Q-LEARNING RESULT LOG ################################
+
+Note:
+Score is defined as the ratio between the obtained rewards and the total steps
+taken, averaged across all the scoring episodes.
+
+Q-Learning episode: 100, epsilon:  0.98
+New best score of -945.0 achieved at episode 100
+Best Q-table saved to ./02_Saved\Scores\best_q_table_3_learn.pkl
+Over all scoring episodes:
+Score: -945.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 200, epsilon:  0.95
+New best score of -770.0 achieved at episode 200
+Best Q-table saved to ./02_Saved\Scores\best_q_table_3_learn.pkl
+Over all scoring episodes:
+Score: -770.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 300, epsilon:  0.93
+New best score of -651.0 achieved at episode 300
+Best Q-table saved to ./02_Saved\Scores\best_q_table_3_learn.pkl
+Over all scoring episodes:
+Score: -651.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 400, epsilon:  0.91
+New best score of -9.0 achieved at episode 400
+Best Q-table saved to ./02_Saved\Scores\best_q_table_3_learn.pkl
+Over all scoring episodes:
+Score: -9.0 ; Average step taken 34.0:
+
+Q-Learning episode: 500, epsilon:  0.88
+New best score of 2380.0 achieved at episode 500
+Best Q-table saved to ./02_Saved\Scores\best_q_table_3_learn.pkl
+Over all scoring episodes:
+Score: 2380.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 600, epsilon:  0.86
+Over all scoring episodes:
+Score: 99.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 700, epsilon:  0.84
+Over all scoring episodes:
+Score: -655.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 800, epsilon:  0.82
+Over all scoring episodes:
+Score: -970.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 900, epsilon:  0.80
+Over all scoring episodes:
+Score: -978.0 ; Average step taken 1000.0:
+
+Q-Learning episode: 1000, epsilon:  0.78
+Over all scoring episodes:
+Score: -1000.0 ; Average step taken 1000.0:
+
+############################# LAST EPISODE RESULTS #################################
+------------------------------------------------------------------------------------
+States visited: 58 | Step taken: 57 | Total rewards: -45 | Elapsed Time: 2384.9
+------------------------------------------------------------------------------------
+act:  -    | ter:   -   | rew: -  |  pos: 0.000 | vel: 0.000
+act: Down  | ter: False | rew: -1 | pos: -0.123 | vel: -2.481
+act: Idle  | ter: False | rew: -1 | pos: -0.419 | vel: -3.462
+act: Idle  | ter: False | rew: -1 | pos: -0.801 | vel: -4.170
+act: Up    | ter: False | rew: -1 | pos: -1.098 | vel: -1.745
+act: Up    | ter: False | rew: -1 | pos: -1.147 | vel:  0.792
+act: Up    | ter: False | rew: -1 | pos: -0.953 | vel:  3.104
+act: Down  | ter: False | rew: -1 | pos: -0.764 | vel:  0.654
+act: Up    | ter: False | rew: -1 | pos: -0.610 | vel:  2.443
+act: Up    | ter: False | rew: -1 | pos: -0.265 | vel:  4.469
+act: Idle  | ter: False | rew: -1 | pos:  0.123 | vel:  3.293
+act: Down  | ter: False | rew: -1 | pos:  0.308 | vel:  0.369
+act: Up    | ter: False | rew: -1 | pos:  0.427 | vel:  2.029
+act: Idle  | ter: False | rew: 1  | pos:  0.578 | vel:  0.979
+act: Down  | ter: False | rew: 1  | pos:  0.540 | vel: -1.758
+act: Idle  | ter: False | rew: -1 | pos:  0.308 | vel: -2.900
+act: Up    | ter: False | rew: -1 | pos:  0.124 | vel: -0.750
+act: Down  | ter: False | rew: -1 | pos: -0.060 | vel: -2.957
+act: Down  | ter: False | rew: -1 | pos: -0.475 | vel: -5.372
+act: Up    | ter: False | rew: -1 | pos: -0.897 | vel: -3.036
+act: Up    | ter: False | rew: -1 | pos: -1.070 | vel: -0.405
+act: Idle  | ter: False | rew: -1 | pos: -1.139 | vel: -0.978
+act: Up    | ter: False | rew: -1 | pos: -1.129 | vel:  1.191
+act: Up    | ter: False | rew: -1 | pos: -0.900 | vel:  3.426
+act: Up    | ter: False | rew: -1 | pos: -0.458 | vel:  5.433
+act: Up    | ter: False | rew: -1 | pos:  0.172 | vel:  7.182
+act: Up    | ter: False | rew: 4  | pos:  0.964 | vel:  8.676
+act: Idle  | ter: False | rew: -1 | pos:  1.745 | vel:  6.924
+act: Down  | ter: False | rew: -1 | pos:  2.265 | vel:  3.435
+act: Up    | ter: False | rew: -1 | pos:  2.664 | vel:  4.552
+act: Up    | ter: False | rew: -1 | pos:  3.190 | vel:  5.984
+act: Down  | ter: False | rew: -1 | pos:  3.629 | vel:  2.758
+act: Up    | ter: False | rew: -1 | pos:  3.957 | vel:  3.829
+act: Down  | ter: False | rew: -1 | pos:  4.185 | vel:  0.696
+act: Up    | ter: False | rew: -1 | pos:  4.315 | vel:  1.917
+act: Idle  | ter: False | rew: -1 | pos:  4.434 | vel:  0.444
+act: Down  | ter: False | rew: -1 | pos:  4.324 | vel: -2.670
+act: Idle  | ter: False | rew: -1 | pos:  3.984 | vel: -4.141
+act: Idle  | ter: False | rew: -1 | pos:  3.514 | vel: -5.274
+act: Up    | ter: False | rew: -1 | pos:  3.089 | vel: -3.218
+act: Idle  | ter: False | rew: -1 | pos:  2.728 | vel: -3.997
+act: Idle  | ter: False | rew: -1 | pos:  2.282 | vel: -4.948
+act: Idle  | ter: False | rew: -1 | pos:  1.745 | vel: -5.782
+act: Idle  | ter: False | rew: 2  | pos:  1.133 | vel: -6.472
+act: Idle  | ter: False | rew: -1 | pos:  0.459 | vel: -7.020
+act: Up    | ter: False | rew: -1 | pos: -0.115 | vel: -4.434
+act: Down  | ter: False | rew: -1 | pos: -0.647 | vel: -6.224
+act: Up    | ter: False | rew: -1 | pos: -1.146 | vel: -3.727
+act: Idle  | ter: False | rew: -1 | pos: -1.532 | vel: -3.990
+act: Idle  | ter: False | rew: -1 | pos: -1.954 | vel: -4.465
+act: Idle  | ter: False | rew: -1 | pos: -2.421 | vel: -4.873
+act: Up    | ter: False | rew: -1 | pos: -2.775 | vel: -2.190
+act: Down  | ter: False | rew: -1 | pos: -3.080 | vel: -3.917
+act: Up    | ter: False | rew: -1 | pos: -3.347 | vel: -1.390
+act: Down  | ter: False | rew: -1 | pos: -3.573 | vel: -3.152
+act: Up    | ter: False | rew: -1 | pos: -3.764 | vel: -0.652
+act: Down  | ter: False | rew: -1 | pos: -3.918 | vel: -2.445
+act: Up    | ter: True  | rew: -1 | pos: -4.041 | vel:  0.019
